@@ -26,8 +26,11 @@ class Patient(db.Model):
     age=db.Column(db.Integer, nullable=False)
     gender=db.Column(db.Enum('Male', 'Female'), nullable=False)
 
-    patient_appointments=db.relationship("Appointment", backref="patient")
-    doctors=db.relationship("Doctor", secondary="appointments", uselist=True, backref="patients")
+    appointments=db.relationship("Appointment", backref="patient")
+    doctors=db.relationship("Doctor", secondary="appointments", uselist=True, backref="patients", viewonly=True)
+
+    def __repr__(self):
+        return f"\nPatient name: {self.first_name} {self.last_name}\nAge: {self.age}\nEmail: {self.email}\nPhone: {self.phone}\nGender: {self.gender}\n"
 
 class Doctor(db.Model):
 
@@ -41,7 +44,10 @@ class Doctor(db.Model):
     department=db.Column(db.String, nullable=False)
     experience=db.Column(db.Integer, nullable=False)
 
-    doctor_appointments=db.relationship("Appointments", backref="doctor")
+    doctor_appointments=db.relationship("Appointment", backref="doctor")
+
+    def __repr__(self):
+        return f"\Doctor name: {self.first_name} {self.last_name}\nAge: {self.age}\nGender: {self.gender}\nDepartment: {self.department}\nYears of experience: {self.experience}"
 
 class Appointment(db.Model):
 
