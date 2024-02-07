@@ -125,5 +125,37 @@ class Doctors(Resource):
 
 api.add_resource(Doctors, "/doctors")
 
+class DoctorsByID(Resource):
+    def patch(self, id):
+        doctor_to_patch=Doctor.query.filter(Doctor.id == id).first()
+
+        if not doctor_to_patch:
+            return make_response(jsonify("Doctor could not be found"), 404)
+
+        updated_first_name=request.json["first_name"]
+        updated_last_name=request.json["last_name"]
+        updated_department=request.json["department"]
+
+        doctor_to_patch.first_name=updated_first_name
+        doctor_to_patch.last_name=updated_last_name
+        doctor_to_patch.department=updated_department
+
+        db.session.add(doctor_to_patch)
+        db.session.commit()
+        return make_response(jsonify("Doctor information updated successfully"), 200)
+
+    def delete(self, id):
+        doctor=Doctor.query.filter(Doctor.id == id).first()
+
+        if not doctor:
+            return make_response(jsonify("Doctor could not be found"), 404)
+        
+        db.session.delete(doctor)
+        db.session.commit()
+        return make_response(jsonify("Doctor deleted successfully"), 200)
+
+api.add_resource(DoctorsByID, "/doctors/<int:id>")
+
+
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
