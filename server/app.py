@@ -92,5 +92,38 @@ class Patients(Resource):
 
 api.add_resource(Patients, "/patients")
 
+class Doctors(Resource):
+    def  get(self):
+        doctors=Doctor.query.all()
+        print(doctors)
+
+    def post(self):
+        first_name=request.json["first_name"]
+        last_name=request.json["last_name"]
+        age=request.json["age"]
+        gender=request.json["gender"]
+        department=request.json["department"]
+        experience=request.json["experience"]
+
+        age_validation=Doctor().validate_age(age=age, key=age)
+        gender_validation=Doctor().validate_gender(key=gender, gender=gender)
+        experience_validation=Doctor().validate_experience(key=experience, experience=experience)
+
+        if age_validation != age:
+            return make_response(jsonify("Age must be a number between 1 and 150"), 400)
+        
+        elif gender_validation != gender:
+            return make_response(jsonify("Invalid gender"), 400)
+
+        elif experience_validation != experience:
+            return make_response(jsonify("Years of experience must be between 1 and 60"), 400)
+        
+        new_doctor=Doctor(last_name=last_name, age=age, experience=experience, first_name=first_name, department=department, gender=gender)
+        db.session.add(new_doctor)
+        db.session.commit()
+        return make_response(jsonify("Doctor information saved successfully"), 201)
+
+api.add_resource(Doctors, "/doctors")
+
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
