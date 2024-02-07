@@ -62,5 +62,35 @@ class Register(Resource):
 
 api.add_resource(Register, "/register")
 
+class Patients(Resource):
+    def get(self):
+        patients=Patient.query.all()
+        print(patients)
+        # return make_response(jsonify(patients), 200)
+
+    def post(self):
+        first_name=request.json["first_name"]
+        last_name=request.json["last_name"]
+        email=request.json["email"]
+        phone=request.json["phone"]
+        age=request.json["age"]
+        gender=request.json["gender"]
+
+        age_validation=Patient().validate_age(age=age, key=age)
+        gender_validation=Patient().validate_gender(key=gender, gender=gender)
+
+        if age_validation != age:
+            return make_response(jsonify("Age must be a number between 1 and 150"), 400)
+        
+        elif gender_validation != gender:
+            return make_response(jsonify("Gender must be either Male or Female"), 400)
+        
+        new_patient=Patient(first_name=first_name, last_name=last_name, email=email, phone=phone, age=age, gender=gender)
+        db.session.add(new_patient)
+        db.session.commit()
+        return make_response(jsonify("Patient created successfully"), 201)
+
+api.add_resource(Patients, "/patients")
+
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
