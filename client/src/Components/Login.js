@@ -18,7 +18,7 @@ const Login = () =>
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
-                <Row>
+                <Row className='ms-3'>
                     <Col>
                         <Button variant='dark' type='submit' className='mb-1'>Login</Button>
                     </Col>
