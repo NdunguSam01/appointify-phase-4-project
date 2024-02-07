@@ -156,6 +156,15 @@ class DoctorsByID(Resource):
 
 api.add_resource(DoctorsByID, "/doctors/<int:id>")
 
+class Appointments(Resource):
+    def get(self):
+        appointments=Appointment.query.all()
+        print(appointments)
+
+    def post(self):
+        print("Appointment creation")
+
+api.add_resource(Appointments, "/appointments")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
