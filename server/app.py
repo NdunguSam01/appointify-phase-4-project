@@ -40,6 +40,27 @@ class AdminLogin(Resource):
 
 api.add_resource(AdminLogin, "/login")
 
+class Register(Resource):
+    def post(self):
+        first_name=request.json["first_name"]
+        last_name=request.json["last_name"]
+        email=request.json["email"]
+        password=request.json["password"]
+        confirm_password=request.json["confirm_password"]
+        
+        if Admin.query.filter(Admin.email==email).first():
+            return make_response(jsonify("An account with the given email already exists"), 401)
+
+        if password != confirm_password:
+            return make_response(jsonify("Passwords do not match!"))
+        
+        hashed_password=hashlib.md5(password.encode("utf-8")).hexdigest()
+        new_admin=Admin(last_name=last_name, email=email, first_name=first_name, password=hashed_password)
+        db.session.add(new_admin)
+        db.session.commit()
+        return make_response(jsonify("Account created successfully"), 201)
+
+api.add_resource(Register, "/register")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
