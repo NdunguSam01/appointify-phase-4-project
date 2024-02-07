@@ -1,11 +1,9 @@
 import './App.css';
-import DoctorsForm from './Components/Doctor Form'
-import IndividualDoctor from './Components/Doctors Page';
+import Login from './Components/Login';
 function App() {
   return (
     <>
-      <DoctorsForm/>
-      <IndividualDoctor/>
+      <Login/>
     </>
   );
 }
