@@ -81,7 +81,7 @@ const RegistrationForm = () =>
                 email: '',
                 password: '',
                 confirm_password: ''
-            }), 2000))
+            }), 3000))
     }
     return ( 
         <>
