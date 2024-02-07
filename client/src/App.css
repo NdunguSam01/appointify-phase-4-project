@@ -22,3 +22,14 @@
 {
   margin: 15px auto;
 }
+.registration-form
+{
+  margin: 50px auto;
+  width: 800px;
+  padding: 20px;
+}
+.registration-form button
+{
+  display: flex;
+  justify-content: center;
+}

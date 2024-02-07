@@ -52,7 +52,10 @@ class Register(Resource):
             return make_response(jsonify("An account with the given email already exists"), 401)
 
         if password != confirm_password:
-            return make_response(jsonify("Passwords do not match!"))
+            return make_response(jsonify("Passwords do not match!"), 401)
+        
+        if Admin.query.filter(Admin.first_name==first_name or Admin.last_name==last_name).all():
+            return make_response(jsonify("An account with the given names already exists"), 401)
         
         hashed_password=hashlib.md5(password.encode("utf-8")).hexdigest()
         new_admin=Admin(last_name=last_name, email=email, first_name=first_name, password=hashed_password)

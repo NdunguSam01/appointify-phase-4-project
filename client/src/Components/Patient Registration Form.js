@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-const PatientRegistrationForm = () => {
+const PatientRegistrationForm = () => 
+{
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
