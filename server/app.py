@@ -31,7 +31,7 @@ class AdminLogin(Resource):
         admin=Admin.query.filter(Admin.email==email).first()
 
         if not admin:
-            return make_response(jsonify({"error": "No acount exists with the given email"}),401)
+            return make_response(jsonify("No acount exists with the given email"),401)
         
         if admin.password != hashlib.md5(password.encode("utf-8")).hexdigest():
             return make_response(jsonify("Incorrect password"), 401)
@@ -49,13 +49,13 @@ class Register(Resource):
         confirm_password=request.json["confirm_password"]
         
         if Admin.query.filter(Admin.email==email).first():
-            return make_response(jsonify("An account with the given email already exists"), 401)
+            return make_response(jsonify("An account with the given email already exists"), 400)
 
         elif password != confirm_password:
-            return make_response(jsonify("Passwords do not match!"), 401)
+            return make_response(jsonify("Passwords do not match!"), 400)
         
         elif Admin.query.filter(Admin.first_name==first_name and Admin.last_name==last_name).first():
-            return make_response(jsonify("An account with the given names already exists"), 401)
+            return make_response(jsonify("An account with the given names already exists"), 400)
         
         hashed_password=hashlib.md5(password.encode("utf-8")).hexdigest()
         new_admin=Admin(last_name=last_name, email=email, first_name=first_name, password=hashed_password)
