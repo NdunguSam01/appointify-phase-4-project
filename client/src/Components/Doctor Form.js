@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DoctorsTable from './DoctorsTable';
+import DoctorsTable from './Doctors Table';
 
 const DoctorsForm = () => {
   const [doctor, setDoctor] = useState({
