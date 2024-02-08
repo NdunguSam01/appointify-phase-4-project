@@ -3,7 +3,8 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 const PatientRegistrationForm = () => 
 {
   const [name, setName] = useState("");
@@ -14,32 +15,49 @@ const PatientRegistrationForm = () =>
   const [address, setAddress] = useState("");
   const [bloodGroup, setBloodGroup] = useState("");
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const [patientFormData, setPatientFormData]=useState(
+    {
+      first_name: '',
+      last_name: '',
+      email: " ",
+      phone: '',
+      gender: '',
+      dob: '',
+      address: '' ,
+      blood_group: ''
+    }
+  )
+  // const handleNameChange = (e) => {
+  //   setName(e.target.value);
+  // };
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  // const handleEmailChange = (e) => {
+  //   setEmail(e.target.value);
+  // };
 
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-  };
+  // const handlePhoneChange = (e) => {
+  //   setPhone(e.target.value);
+  // };
 
-  const handleDobChange = (e) => {
-    setDob(e.target.value);
-  };
+  // const handleDobChange = (e) => {
+  //   setDob(e.target.value);
+  // };
 
-  const handleGenderChange = (e) => {
-    setGender(e.target.value);
-  };
+  // const handleGenderChange = (e) => {
+  //   setGender(e.target.value);
+  // };
 
-  const handleAddressChange = (e) => {
-    setAddress(e.target.value);
-  };
+  // const handleAddressChange = (e) => {
+  //   setAddress(e.target.value);
+  // };
 
-  const handleBloodGroupChange = (e) => {
-    setBloodGroup(e.target.value);
+  // const handleBloodGroupChange = (e) => {
+  //   setBloodGroup(e.target.value);
+  // };
+  // const [phone, setPhoneNumber] = useState('');
+
+  const handlePhoneNumberChange = (value) => {
+    setPhone(value);
   };
 
   const handleSubmit = (e) => {
@@ -56,7 +74,7 @@ const PatientRegistrationForm = () =>
   };
 
   return(
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>First Name</Form.Label>
@@ -78,7 +96,21 @@ const PatientRegistrationForm = () =>
         </Form.Group>
         <Form.Group as={Col}>
           <Form.Label>Phone Number</Form.Label>
-          <Form.Control type="text"></Form.Control>
+          <PhoneInput international defaultCountry="KE" value={phone} onChange={handlePhoneNumberChange} id="phone" required></PhoneInput>
+        </Form.Group>
+      </Row>
+      <Row className="mb-3">
+        <Form.Group as={Col}>
+          <Form.Label>Date of birth</Form.Label>
+          <Form.Control type="date" placeholder="Date of birth" id="dob" required></Form.Control>
+        </Form.Group>
+        <Form.Group as={Col}>
+          <Form.Label>Gender</Form.Label>
+          <Form.Select aria-label="Select gender">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </Form.Select>
         </Form.Group>
       </Row>
     </Form>      
