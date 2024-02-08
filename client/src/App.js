@@ -1,30 +1,19 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import PatientsPage from './Components/PatientsPage';
-import PatientDetailsPage from './Components/PatientsDetails'
-import PatientRecords from './Components/PatientRecords'
-import PatientRegistrationForm from './Components/PatientsRegistrationForm'
-import DoctorsTable from './Components/DoctorsTable'
-import DoctorsTable from './Components/DoctorsTable'
-import IndividualDoctor from './Components/DoctorsPage'
-import function App() {
+import Login from './Components/Login';
+import RegistrationForm from './Components/Admin Registration Form';
+import Dashboard from './Components/Dashboard';
+import React from 'react';
+function App() 
+{
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route exact path='/' element={<Login/>}></Route>
+        <Route exact path='/register' element={<RegistrationForm/>}></Route>
+        <Route exact path='/dashboard/*' element={<Dashboard/>}></Route>
+      </Routes>
+    </>
   );
 }
 

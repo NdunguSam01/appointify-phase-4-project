@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import validates
 
 db=SQLAlchemy()
 
@@ -29,6 +30,25 @@ class Patient(db.Model):
     appointments=db.relationship("Appointment", backref="patient")
     doctors=db.relationship("Doctor", secondary="appointments", uselist=True, backref="patients", viewonly=True)
 
+    @validates("gender")
+    def validate_gender(self, key, gender):
+        genders=["Male", "Female"]
+
+        if not gender:
+            return ValueError("Gender cannot be empty")
+        
+        elif gender not in genders:
+            return ValueError("Gender must be Male or Female")
+        
+        return gender
+    
+    @validates("age")
+    def validate_age(self, key, age):
+        if age <=0 or age>=150:
+            return ValueError("Enter a valid age")
+        
+        return age
+    
     def __repr__(self):
         return f"\nPatient name: {self.first_name} {self.last_name}\nAge: {self.age}\nEmail: {self.email}\nPhone: {self.phone}\nGender: {self.gender}\n"
 
@@ -46,8 +66,34 @@ class Doctor(db.Model):
 
     doctor_appointments=db.relationship("Appointment", backref="doctor")
 
+    @validates("age")
+    def validate_age(self, key, age):
+        if age <=25 or age>=150:
+            return ValueError("Enter a valid age")
+        
+        return age
+    
+    @validates("gender")
+    def validate_gender(self, key, gender):
+        genders=["Male", "Female"]
+
+        if not gender:
+            return ValueError("Gender cannot be empty")
+        
+        elif gender not in genders:
+            return ValueError("Gender must be Male or Female")
+        
+        return gender
+    
+    @validates("experience")
+    def validate_experience(self, key, experience):
+        if  experience <= 0 or experience >= 60:
+            return ValueError("Invalid years of experience")
+        
+        return experience
+    
     def __repr__(self):
-        return f"\Doctor name: {self.first_name} {self.last_name}\nAge: {self.age}\nGender: {self.gender}\nDepartment: {self.department}\nYears of experience: {self.experience}"
+        return f"\nDoctor name: {self.first_name} {self.last_name}\nAge: {self.age}\nGender: {self.gender}\nDepartment: {self.department}\nYears of experience: {self.experience}"
 
 class Appointment(db.Model):
 
