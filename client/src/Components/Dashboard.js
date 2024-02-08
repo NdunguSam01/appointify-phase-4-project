@@ -1,11 +1,14 @@
 import { Outlet, Route, Routes } from "react-router-dom";
+import PatientsPage from './Patients/PatientsPage'
+import Navbar from '../Navbar'
 const Dashboard = () => 
 {
     return ( 
         <>
-            <h1>Navbar goes here</h1>
+            <Navbar/>
             <Outlet/>
             <Routes>
+                <Route path="/patients" element={<PatientsPage/>}></Route>
             </Routes>
         </>
      );

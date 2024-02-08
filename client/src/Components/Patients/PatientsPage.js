@@ -1,7 +1,8 @@
 import Table from 'react-bootstrap/Table'
 import PatientTable from './Patient Records Table';
+import PatientRegistrationForm from './Patient Registration Form'
 import { useState, useEffect } from 'react';
-
+import Accordion from 'react-bootstrap/Accordion'
 const PatientsPage = () => 
 {
   const [patientData, setPatientData]=useState([])
@@ -19,6 +20,14 @@ const PatientsPage = () =>
     })
   return ( 
     <>
+      <Accordion defaultActiveKey="0">
+        <Accordion.Item eventKey='0'>
+          <Accordion.Header>Add a new patient</Accordion.Header>
+          <Accordion.Body>
+            <PatientRegistrationForm/>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
       <Table striped variant='light' className='table-bordered'>
         <thead>
           <tr>
