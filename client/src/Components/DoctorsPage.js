@@ -8,7 +8,7 @@ class IndividualDoctor extends Component {
     };
   }
 
-  getAppointmentsUrl = () => {
+  getAppointmentsUrl = () => {                                        
     const baseUrl = "https://your-app-url.com/appointments";
     const doctorId = this.props.id;
 
