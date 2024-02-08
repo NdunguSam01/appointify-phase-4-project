@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button'
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Stack from 'react-bootstrap/Stack';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { toast, ToastContainer } from 'react-toastify';
@@ -87,36 +85,32 @@ const PatientRegistrationForm = ({patientData, setPatientData}) =>
     <>
     <ToastContainer autoClose={2000} className="mx-1" pauseOnHover={false}/>
       <Form onSubmit={handleSubmit}>
-        <Row className="mb-3">
-          <Form.Group as={Col}>
+        <Row>
+          <Form.Group  className="col-md-6 mb-3">
             <Form.Label>First Name</Form.Label>
             <Form.Control type="name" placeholder="First Name" id="first_name" value={patientFormData.first_name} onChange={handleChange} required></Form.Control>
           </Form.Group>
-          <Form.Group as={Col}>
+          <Form.Group  className="col-md-6 mb-3">
             <Form.Label>Last Name</Form.Label>
             <Form.Control type="name" placeholder="Last Name" id="last_name" value={patientFormData.last_name} onChange={handleChange} required></Form.Control>
           </Form.Group>
-        </Row>
-        <Form.Group className="mb-3">
-          <Form.Label>Address</Form.Label>
-          <Form.Control placeholder="City" type="text" id="address" value={patientFormData.address} onChange={handleChange} required></Form.Control>
-        </Form.Group>
-        <Row className="mb-3">
-          <Form.Group as={Col}>
+          <Form.Group className="mb-3">
+            <Form.Label>Address</Form.Label>
+            <Form.Control placeholder="City" type="text" id="address" value={patientFormData.address} onChange={handleChange} required></Form.Control>
+          </Form.Group>
+          <Form.Group  className="col-md-6 mb-3">
             <Form.Label>Email Address</Form.Label>
             <Form.Control type="email" placeholder="Email address" id="email" value={patientFormData.email} onChange={handleChange} required></Form.Control>
           </Form.Group>
-          <Form.Group as={Col}>
+          <Form.Group  className="col-md-6 mb-3">
             <Form.Label>Phone Number</Form.Label>
             <PhoneInput international defaultCountry="KE" value={patientFormData.phone_number} onChange={handlePhoneNumberChange} required></PhoneInput>
           </Form.Group>
-        </Row>
-        <Row className="mb-3">
-          <Form.Group as={Col}>
+          <Form.Group  className="col-md-4 mb-3">
             <Form.Label>Date of birth</Form.Label>
             <Form.Control type="date" placeholder="Date of birth" id="dob" value={patientFormData.dob} onChange={handleChange} required></Form.Control>
           </Form.Group>
-          <Form.Group as={Col}>
+          <Form.Group  className="col-md-4 mb-3">
             <Form.Label>Gender</Form.Label>
             <Form.Select aria-label="Select gender" value={patientFormData.gender} onChange={handleChange} id="gender">
               <option value="">Select gender</option>
@@ -124,7 +118,7 @@ const PatientRegistrationForm = ({patientData, setPatientData}) =>
               <option value="Female">Female</option>
             </Form.Select>
           </Form.Group>
-          <Form.Group as={Col}>
+          <Form.Group  className="col-md-4 mb-3">
             <Form.Label>Blood group</Form.Label>
             <Form.Select aria-label="Select the blood group" value={patientFormData.blood_group} onChange={handleChange} id="blood_group">
               <option value="">Select the blood group</option>
@@ -138,10 +132,8 @@ const PatientRegistrationForm = ({patientData, setPatientData}) =>
               <option value="O-">O-</option>
             </Form.Select>
           </Form.Group>
+          <Button type="submit" variant="dark" className="col-md-5 mx-auto mt-3">Add new patient</Button>
         </Row>
-        <Stack gap={2} className="col-md-5 mx-auto">
-          <Button type="submit" variant="dark">Add new patient</Button>
-        </Stack>
       </Form>    
     </>  
   )
