@@ -34,11 +34,20 @@ const PatientsPage = () =>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
-            <th>Action</th>
+            <th>Gender</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Blood Group</th>
           </tr>
         </thead>
         <tbody>
-          {patientDataMap}
+          {patientData.length === 0 ? 
+            <tr>
+              <td colSpan={7}>No data</td>
+            </tr>
+          :
+            patientDataMap  
+          } 
         </tbody>
       </Table>
     </>

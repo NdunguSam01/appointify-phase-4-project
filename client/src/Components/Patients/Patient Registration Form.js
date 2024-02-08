@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { toast, ToastContainer } from 'react-toastify';
+
 const PatientRegistrationForm = ({patientData, setPatientData}) => 
 {
   const [patientFormData, setPatientFormData]=useState(
@@ -65,7 +66,10 @@ const PatientRegistrationForm = ({patientData, setPatientData}) =>
         else
         {
           response.json()
-          .then(error => console.log(error))
+          .then(error => toast.error(error,
+            {
+              position: "top-right"
+            }))
         }
       })
       .then(setPatientFormData(
@@ -83,7 +87,7 @@ const PatientRegistrationForm = ({patientData, setPatientData}) =>
   };
   return(
     <>
-    <ToastContainer autoClose={2000} className="mx-1" pauseOnHover={false}/>
+      <ToastContainer autoClose={2000} className="mx-1" pauseOnHover={false}/>
       <Form onSubmit={handleSubmit}>
         <Row>
           <Form.Group  className="col-md-6 mb-3">
@@ -132,7 +136,7 @@ const PatientRegistrationForm = ({patientData, setPatientData}) =>
               <option value="O-">O-</option>
             </Form.Select>
           </Form.Group>
-          <Button type="submit" variant="dark" className="col-md-5 mx-auto mt-3">Add new patient</Button>
+          <Button type="submit" variant="dark" className="col-md-2 mx-auto mt-3">Add new patient</Button>
         </Row>
       </Form>    
     </>  

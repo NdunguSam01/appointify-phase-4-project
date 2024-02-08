@@ -51,7 +51,7 @@ class Patient(db.Model):
         return age
     
     def __repr__(self):
-        return f"\nPatient name: {self.first_name} {self.last_name}\nAge: {self.age}\nEmail: {self.email}\nPhone: {self.phone}\nGender: {self.gender}\n"
+        return f"\nPatient name: {self.first_name} {self.last_name}\Date of birth: {self.dob}\nEmail: {self.email}\nPhone: {self.phone}\nGender: {self.gender}\nAddress: {self.address}\n"
 
 
 class Doctor(db.Model):
@@ -70,7 +70,7 @@ class Doctor(db.Model):
 
     @validates("age")
     def validate_age(self, key, age):
-        if age <=25 or age>=150:
+        if age < 25 or age >= 100:
             return ValueError("Enter a valid age")
         
         return age

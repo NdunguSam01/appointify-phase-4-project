@@ -1,9 +1,10 @@
 from flask import Flask, jsonify, request, session, make_response
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
+from flask_cors import CORS
 from models import db, Admin, Patient, Doctor, Appointment
 import hashlib
-from schema import patients_schema, doctors_schema, doctor_scema, patient_schema
+from schema import patients_schema, doctors_schema, doctor_schema, patient_schema
 
 app=Flask(__name__)
 
@@ -13,6 +14,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #Adding an API to the application
 api=Api(app)
+
+CORS(app)
 
 #Creating a database migration
 migrate=Migrate(app, db)
@@ -103,17 +106,17 @@ class Doctors(Resource):
     def post(self):
         first_name=request.json["first_name"]
         last_name=request.json["last_name"]
-        age=request.json["age"]
+        age=int(request.json["age"])
         gender=request.json["gender"]
         department=request.json["department"]
-        experience=request.json["experience"]
+        experience=int(request.json["experience"])
 
         age_validation=Doctor().validate_age(age=age, key=age)
         gender_validation=Doctor().validate_gender(key=gender, gender=gender)
         experience_validation=Doctor().validate_experience(key=experience, experience=experience)
 
         if age_validation != age:
-            return make_response(jsonify("Age must be a number between 1 and 150"), 400)
+            return make_response(jsonify("Age must be a number between 25 and 100"), 400)
         
         elif gender_validation != gender:
             return make_response(jsonify("Invalid gender"), 400)
@@ -124,19 +127,29 @@ class Doctors(Resource):
         new_doctor=Doctor(last_name=last_name, age=age, experience=experience, first_name=first_name, department=department, gender=gender)
         db.session.add(new_doctor)
         db.session.commit()
-        return make_response(jsonify("Doctor information saved successfully"), 201)
+        return make_response(doctor_schema.dump(new_doctor), 201)
 
 api.add_resource(Doctors, "/doctors")
 
+class PatientsByID(Resource):
+    def get(self, id):
+        patient=Patient.query.filter(Doctor.id == id).first()
+
+        if not patient:
+            return make_response(jsonify("Patient could not be found!"), 404)
+        
+        patient_dict=patient_schema.dump(patient)
+        return make_response(patient_dict, 200)
+
+api.add_resource(PatientsByID, "/patients/<int:id>")
 class DoctorsByID(Resource):
     def get(self, id):
         doctor=Doctor.query.filter(Doctor.id == id).first()
-        print(doctor)
 
         if not doctor:
             return make_response(jsonify("Doctor could not be found!"), 404)
         
-        doctor_dict=doctor_scema.dump(doctor)
+        doctor_dict=doctor_schema.dump(doctor)
         return make_response(doctor_dict, 200)
 
     def patch(self, id):
@@ -149,13 +162,17 @@ class DoctorsByID(Resource):
         updated_last_name=request.json["last_name"]
         updated_department=request.json["department"]
 
-        doctor_to_patch.first_name=updated_first_name
-        doctor_to_patch.last_name=updated_last_name
-        doctor_to_patch.department=updated_department
+        if doctor_to_patch.first_name != updated_first_name or doctor_to_patch.last_name != updated_last_name or doctor_to_patch.department != updated_department:
+            doctor_to_patch.first_name=updated_first_name
+            doctor_to_patch.last_name=updated_last_name
+            doctor_to_patch.department=updated_department
 
-        db.session.add(doctor_to_patch)
-        db.session.commit()
-        return make_response(jsonify("Doctor information updated successfully"), 200)
+            db.session.add(doctor_to_patch)
+            db.session.commit()
+            return make_response(jsonify("Doctor information updated successfully"), 200)
+        
+        else:
+            return make_response(jsonify("Error: Could not update information"), 400)
 
     def delete(self, id):
         doctor=Doctor.query.filter(Doctor.id == id).first()

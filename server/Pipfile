@@ -12,6 +12,7 @@ flask-bcrypt = "*"
 faker = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
+flask-cors = "*"
 
 [dev-packages]
 
