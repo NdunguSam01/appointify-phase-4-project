@@ -20,11 +20,11 @@ const PatientsPage = () =>
     })
   return ( 
     <>
-      <Accordion defaultActiveKey="0">
+      <Accordion>
         <Accordion.Item eventKey='0'>
           <Accordion.Header>Add a new patient</Accordion.Header>
           <Accordion.Body>
-            <PatientRegistrationForm/>
+            <PatientRegistrationForm setPatientData={setPatientData} patientData={patientData}/>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

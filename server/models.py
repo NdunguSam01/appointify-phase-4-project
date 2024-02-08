@@ -23,8 +23,10 @@ class Patient(db.Model):
     last_name=db.Column(db.String, nullable=False)
     email=db.Column(db.String, unique=True, nullable=False)
     phone=db.Column(db.String, unique=True, nullable=False)
-    age=db.Column(db.Integer, nullable=False)
+    dob=db.Column(db.String, nullable=False)
     gender=db.Column(db.Enum('Male', 'Female'), nullable=False)
+    blood_group=db.Column(db.String, nullable=False)
+    address=db.Column(db.String, nullable=False)
 
     appointments=db.relationship("Appointment", backref="patient")
     doctors=db.relationship("Doctor", secondary="appointments", uselist=True, backref="patients", viewonly=True)
