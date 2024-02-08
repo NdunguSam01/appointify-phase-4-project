@@ -6,12 +6,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link to="/dashboard" className="navbar-brand">Hospital Dashboard</Link>
+      <Link to="/dashboard" className="navbar-brand"> Dashboard</Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
+        <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link to="/dashboard/appointments" className="nav-link">Appointments</Link>
           </li>
