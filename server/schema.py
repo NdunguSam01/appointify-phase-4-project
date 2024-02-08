@@ -9,7 +9,7 @@ admin_schema=AdminSchema()
 
 class PatientSchema(Schema):
     class Meta:
-        fields=("id","first_name","last_name","email","phone","age","gender")
+        fields=("id","first_name","last_name","email","phone","address","gender","blood_group")
 
 patient_schema=PatientSchema()
 patients_schema=PatientSchema(many=True)

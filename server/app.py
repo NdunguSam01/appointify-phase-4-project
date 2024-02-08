@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from models import db, Admin, Patient, Doctor, Appointment
 import hashlib
-from schema import patients_schema, doctors_schema, doctor_scema
+from schema import patients_schema, doctors_schema, doctor_scema, patient_schema
 
 app=Flask(__name__)
 
@@ -76,23 +76,21 @@ class Patients(Resource):
         first_name=request.json["first_name"]
         last_name=request.json["last_name"]
         email=request.json["email"]
-        phone=request.json["phone"]
-        age=request.json["age"]
+        phone=request.json["phone_number"]
+        dob=request.json["dob"]
         gender=request.json["gender"]
-
-        age_validation=Patient().validate_age(age=age, key=age)
+        address=request.json["address"]
+        blood_group=request.json["blood_group"]
         gender_validation=Patient().validate_gender(key=gender, gender=gender)
 
-        if age_validation != age:
-            return make_response(jsonify("Age must be a number between 1 and 150"), 400)
-        
-        elif gender_validation != gender:
+        if gender_validation != gender:
             return make_response(jsonify("Gender must be either Male or Female"), 400)
         
-        new_patient=Patient(first_name=first_name, last_name=last_name, email=email, phone=phone, age=age, gender=gender)
+        new_patient=Patient(first_name=first_name, last_name=last_name, email=email, phone=phone, dob=dob, gender=gender, address=address, blood_group=blood_group)
         db.session.add(new_patient)
         db.session.commit()
-        return make_response(jsonify("Patient created successfully"), 201)
+        patient=patient_schema.dump(new_patient)
+        return make_response(patient, 201)
 
 api.add_resource(Patients, "/patients")
 
