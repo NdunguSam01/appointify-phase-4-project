@@ -1,5 +1,3 @@
-import {Link} from 'react-router-dom'
-
 const PatientTable = ({patient}) => 
 {
     console.log(patient)
@@ -14,11 +12,6 @@ const PatientTable = ({patient}) =>
             <td width={"15%"}>{phone}</td>
             <td width={"12%"}>{address}</td>
             <td width={"15%"}>{blood_group}</td>
-            {/* <td width={"10%"}>            
-                <Link to={`/dashboard/patients/${id}`}>
-                    <button className='btn btn-dark'>View details</button>
-                </Link>
-            </td> */}
         </tr>
      );
 }
