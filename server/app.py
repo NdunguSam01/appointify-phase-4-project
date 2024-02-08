@@ -3,6 +3,7 @@ from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from models import db, Admin, Patient, Doctor, Appointment
 import hashlib
+from schema import patients_schema, doctors_schema, doctor_scema
 
 app=Flask(__name__)
 
@@ -68,8 +69,8 @@ api.add_resource(Register, "/register")
 class Patients(Resource):
     def get(self):
         patients=Patient.query.all()
-        print(patients)
-        # return make_response(jsonify(patients), 200)
+        patients_dict=patients_schema.dump(patients)
+        return make_response(patients_dict, 200)
 
     def post(self):
         first_name=request.json["first_name"]
@@ -98,7 +99,8 @@ api.add_resource(Patients, "/patients")
 class Doctors(Resource):
     def  get(self):
         doctors=Doctor.query.all()
-        print(doctors)
+        doctors_dict=doctors_schema.dump(doctors)
+        return make_response(doctors_dict, 200)
 
     def post(self):
         first_name=request.json["first_name"]
@@ -129,6 +131,16 @@ class Doctors(Resource):
 api.add_resource(Doctors, "/doctors")
 
 class DoctorsByID(Resource):
+    def get(self, id):
+        doctor=Doctor.query.filter(Doctor.id == id).first()
+        print(doctor)
+
+        if not doctor:
+            return make_response(jsonify("Doctor could not be found!"), 404)
+        
+        doctor_dict=doctor_scema.dump(doctor)
+        return make_response(doctor_dict, 200)
+
     def patch(self, id):
         doctor_to_patch=Doctor.query.filter(Doctor.id == id).first()
 

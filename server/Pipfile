@@ -10,6 +10,8 @@ flask-migrate = "*"
 flask-restful = "*"
 flask-bcrypt = "*"
 faker = "*"
+flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
 
 [dev-packages]
 

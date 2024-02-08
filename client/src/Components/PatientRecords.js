@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PatientRecord from './PatientRecord';
+// import PatientRecord from './PatientRecord';
 
 class PatientRecords extends Component {
   constructor(props) {
@@ -24,13 +24,13 @@ class PatientRecords extends Component {
   render() {
     return (
       <div>
-        {this.state.records.map(record => (
+        {/* {this.state.records.map(record => (
           <PatientRecord
             key={record.id}
             record={record}
             onViewDetail={this.handleViewDetail}
           />
-        ))}
+        ))} */}
       </div>
     );
   }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import DoctorsTable from './Doctors Table';
 
-const DoctorsForm = () => {
+const DoctorsForm = () => 
+{
   const [doctor, setDoctor] = useState({
     id: '',
     name: '',
@@ -45,7 +46,8 @@ const DoctorsForm = () => {
   );
 };
 
-const App = () => {
+const App = () => 
+{
   return (
     <div>
       <h1>Doctors Form</h1>

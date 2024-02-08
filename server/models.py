@@ -1,6 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
-
 db=SQLAlchemy()
 
 class Admin(db.Model):
@@ -52,6 +51,7 @@ class Patient(db.Model):
     def __repr__(self):
         return f"\nPatient name: {self.first_name} {self.last_name}\nAge: {self.age}\nEmail: {self.email}\nPhone: {self.phone}\nGender: {self.gender}\n"
 
+
 class Doctor(db.Model):
 
     __tablename__ = "doctors"
@@ -94,6 +94,8 @@ class Doctor(db.Model):
     
     def __repr__(self):
         return f"\nDoctor name: {self.first_name} {self.last_name}\nAge: {self.age}\nGender: {self.gender}\nDepartment: {self.department}\nYears of experience: {self.experience}"
+
+
 
 class Appointment(db.Model):
 

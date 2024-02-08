@@ -1,5 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom";
-import Test from "../Test";
+import PatientsPage from "./Patients/PatientsPage";
 const Dashboard = () => 
 {
     return ( 
@@ -7,7 +7,7 @@ const Dashboard = () =>
             <h1>Navbar goes here</h1>
             <Outlet/>
             <Routes>
-                <Route path='/test' element={<Test/>}></Route>
+                <Route path="/patients" element={<PatientsPage/>}></Route>
             </Routes>
         </>
      );
