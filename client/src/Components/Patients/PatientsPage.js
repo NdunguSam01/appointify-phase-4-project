@@ -43,7 +43,7 @@ const PatientsPage = () =>
         <tbody>
           {patientData.length === 0 ? 
             <tr>
-              <td colSpan={7}>No data</td>
+              <td colSpan={7} className='text-center'>No data available</td>
             </tr>
           :
             patientDataMap  
