@@ -4,7 +4,8 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from models import db, Admin, Patient, Doctor, Appointment
 import hashlib
-from schema import patients_schema, doctors_schema, doctor_schema, patient_schema
+from datetime import datetime
+from schema import PatientSchema, DoctorSchema, AppointmentSchema
 
 app=Flask(__name__)
 
@@ -72,6 +73,7 @@ api.add_resource(Register, "/register")
 class Patients(Resource):
     def get(self):
         patients=Patient.query.all()
+        patients_schema=PatientSchema(many=True)
         patients_dict=patients_schema.dump(patients)
         return make_response(patients_dict, 200)
 
@@ -92,6 +94,7 @@ class Patients(Resource):
         new_patient=Patient(first_name=first_name, last_name=last_name, email=email, phone=phone, dob=dob, gender=gender, address=address, blood_group=blood_group)
         db.session.add(new_patient)
         db.session.commit()
+        patient_schema=PatientSchema()
         patient=patient_schema.dump(new_patient)
         return make_response(patient, 201)
 
@@ -100,6 +103,7 @@ api.add_resource(Patients, "/patients")
 class Doctors(Resource):
     def  get(self):
         doctors=Doctor.query.all()
+        doctors_schema=DoctorSchema(many=True)
         doctors_dict=doctors_schema.dump(doctors)
         return make_response(doctors_dict, 200)
 
@@ -127,6 +131,7 @@ class Doctors(Resource):
         new_doctor=Doctor(last_name=last_name, age=age, experience=experience, first_name=first_name, department=department, gender=gender)
         db.session.add(new_doctor)
         db.session.commit()
+        doctor_schema=DoctorSchema()
         return make_response(doctor_schema.dump(new_doctor), 201)
 
 api.add_resource(Doctors, "/doctors")
@@ -138,6 +143,7 @@ class PatientsByID(Resource):
         if not patient:
             return make_response(jsonify("Patient could not be found!"), 404)
         
+        patient_schema=PatientSchema()
         patient_dict=patient_schema.dump(patient)
         return make_response(patient_dict, 200)
 
@@ -149,6 +155,7 @@ class DoctorsByID(Resource):
         if not doctor:
             return make_response(jsonify("Doctor could not be found!"), 404)
         
+        doctor_schema=PatientSchema()
         doctor_dict=doctor_schema.dump(doctor)
         return make_response(doctor_dict, 200)
 
@@ -189,10 +196,37 @@ api.add_resource(DoctorsByID, "/doctors/<int:id>")
 class Appointments(Resource):
     def get(self):
         appointments=Appointment.query.all()
-        print(appointments)
+        patients=Patient.query.all()
+        doctors=Doctor.query.all()
+
+        patients_dict=PatientSchema(only=("id","first_name","last_name"), many=True).dump(patients)
+        doctors_dict=DoctorSchema(only=("id","first_name", "last_name"), many=True).dump(doctors)
+        appointments_dict=AppointmentSchema(many=True).dump(appointments)
+        response=[
+            {
+                "patients": patients_dict,
+                "doctors": doctors_dict,
+                "appointments": appointments_dict
+            }
+        ]
+        return make_response(response, 200)
 
     def post(self):
-        print("Appointment creation")
+        patient_id=request.json['patient_id']
+        doctor_id=request.json['doctor_id']
+        date=datetime.strptime(request.json['date'],'%Y-%m-%d').date()
+        time=datetime.strptime(request.json['time'], '%H:%M').time()
+        purpose=request.json['purpose']
+
+        if patient_id and doctor_id and date and time and purpose:
+            new_appointment=Appointment(patient_id=patient_id, doctor_id=doctor_id, date=date, time=time, purpose=purpose)
+            db.session.add(new_appointment)
+            db.session.commit()
+            appointment_schema=AppointmentSchema()
+            return make_response(appointment_schema.dump(new_appointment), 201)
+        
+        else:
+            return make_response(jsonify("Kindly fill in all the fields"), 400)
 
 api.add_resource(Appointments, "/appointments")
 

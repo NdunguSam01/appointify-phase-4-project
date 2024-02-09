@@ -98,9 +98,7 @@ class Doctor(db.Model):
         return f"\nDoctor name: {self.first_name} {self.last_name}\nAge: {self.age}\nGender: {self.gender}\nDepartment: {self.department}\nYears of experience: {self.experience}"
 
 
-
 class Appointment(db.Model):
-
     __tablename__ = "appointments"
 
     id=db.Column(db.Integer, primary_key=True)
@@ -108,5 +106,5 @@ class Appointment(db.Model):
     doctor_id=db.Column(db.Integer, db.ForeignKey("doctors.id"))
     date=db.Column(db.Date, nullable=False)
     time=db.Column(db.Time, nullable=False)
-    puprose=db.Column(db.String, nullable=False)
+    purpose=db.Column(db.String, nullable=False)
     admin_id=db.Column(db.Integer, db.ForeignKey("admins.id"))

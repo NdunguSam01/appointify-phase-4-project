@@ -16,11 +16,7 @@ const DoctorsForm = ({doctors, setDoctors}) =>
       experience: 0
     })
 
-  const handleInputChange= e => setDoctorData(
-    {
-      ...doctorData,
-      [e.target.id]: e.target.value
-    })
+  const handleInputChange= e => setDoctorData({...doctorData,[e.target.id]: e.target.value})
 
   const handleSubmit= e =>
   {
@@ -88,7 +84,7 @@ const DoctorsForm = ({doctors, setDoctors}) =>
           </Form.Group>
           <Form.Group  className="col-md-6 mb-3">
             <Form.Label>Gender</Form.Label>
-            <Form.Select aria-label="Select gender" value={doctorData.gender} onChange={handleInputChange} id="gender">
+            <Form.Select aria-label="Select gender" value={doctorData.gender} onChange={handleInputChange} id="gender" required>
               <option value="">Select gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
