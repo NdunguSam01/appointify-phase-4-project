@@ -6,11 +6,11 @@ const DoctorsTable = ({doctor}) =>
 
   return(
     <tr key={id}>
-      <td width={"15%"}>{first_name}</td>
-      <td width={"15%"}>{last_name}</td>
-      <td width={"15%"}>{department}</td>
-      <td width={"15%"}>{gender}</td>
-      <td width={"10%"}>            
+      <td width={"15%"} data-label="First Name">{first_name}</td>
+      <td width={"15%"} data-label="Last Name">{last_name}</td>
+      <td width={"15%"} data-label="Department">{department}</td>
+      <td width={"15%"} data-label="Gender">{gender}</td>
+      <td width={"10%"} data-label="Action">            
           <Link to={`/dashboard/doctors/${id}`}>
               <button className='btn btn-dark'>View details</button>
           </Link>

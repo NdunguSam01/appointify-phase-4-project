@@ -10,11 +10,11 @@ const AppointmentsTable = ({appointments}) =>
 
                     return (  
                         <tr key={id}>
-                            <td>{patient_name}</td>
-                            <td>{doctor_name}</td>
-                            <td>{date}</td>
-                            <td>{time}</td>
-                            <td>{purpose}</td>
+                            <td data-label="Patient's Name">{patient_name}</td>
+                            <td data-label="Doctor's Name">{doctor_name}</td>
+                            <td data-label="Date">{date}</td>
+                            <td data-label="Time">{time}</td>
+                            <td data-label="Purpose">{purpose}</td>
                         </tr>
                     );
                 })
