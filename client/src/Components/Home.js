@@ -26,24 +26,24 @@ const Home = () =>
                 <Col sm={4} className='mb-3'>
                     <Card>
                         <Card.Body>
-                            <Card.Title>Patients</Card.Title>
-                            <Card.Text>{patientCount}</Card.Text>
+                            <Card.Title className='fw-bolder text-uppercase'>Patients</Card.Title>
+                            <Card.Text className='fw-bold'>{patientCount}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col sm={4} className='mb-3'>
                     <Card>
                         <Card.Body>
-                            <Card.Title>Doctors</Card.Title>
-                            <Card.Text>{doctorsCount}</Card.Text>
+                            <Card.Title className='fw-bolder text-uppercase'>Doctors</Card.Title>
+                            <Card.Text className='fw-bold'>{doctorsCount}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col sm={4} className='mb-3'>
                     <Card>
                         <Card.Body>
-                            <Card.Title>Appointments</Card.Title>
-                            <Card.Text>{appointmentCount}</Card.Text>
+                            <Card.Title className='fw-bolder text-uppercase'>Appointments</Card.Title>
+                            <Card.Text className='fw-bold'>{appointmentCount}</Card.Text>
                         </Card.Body>
                     </Card>
                 </Col>
