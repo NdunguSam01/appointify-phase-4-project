@@ -46,7 +46,15 @@ const Appointments = () =>
                         <th>Purpose</th>
                     </tr>
                 </thead>
-                <AppointmentsTable appointments={appointments}/>
+                {appointments.length === 0 ? 
+                    <tbody>
+                        <tr>
+                            <td colSpan={6} className="text-center">No data available</td>
+                        </tr>
+                    </tbody>
+                :
+                    <AppointmentsTable appointments={appointments}/>
+                }
             </Table>
         </>
      );
