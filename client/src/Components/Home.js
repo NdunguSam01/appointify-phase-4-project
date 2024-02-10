@@ -7,6 +7,7 @@ const Home = () =>
     const [patientCount, setPatientCount]=useState(0)
     const [doctorsCount, setDoctorsCount]=useState(0)
     const [appointmentCount, setAppointmentCount]=useState(0)
+    const [adminName, setAdminName]=useState("")
 
     useEffect(()=>
     {
@@ -14,14 +15,17 @@ const Home = () =>
         .then(response => response.json())
         .then(data => 
             {
+                setAdminName(`${data.admin.first_name} ${data.admin.last_name}`)
                 setAppointmentCount(data.appointments)
                 setDoctorsCount(data.doctors)
                 setPatientCount(data.patients)
             })
     })
+
     return (  
         <>
             <h1 className="text-center text-uppercase">Appointment Management System</h1>
+            <h2 className="text-center text-uppercase mt-3">Welcome back, {adminName}</h2>
             <Row style={{width: "90%", margin: "50px auto"}}>
                 <Col sm={4} className='mb-3'>
                     <Card>

@@ -5,14 +5,14 @@ from flask_cors import CORS
 from models import db, Admin, Patient, Doctor, Appointment
 import hashlib
 from datetime import datetime
-from schema import PatientSchema, DoctorSchema, AppointmentSchema
+from schema import PatientSchema, DoctorSchema, AppointmentSchema, AdminSchema
 
 app=Flask(__name__)
 
 #Configuring the database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///appointify.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.secret_key="cksckdhsbidbkcldjiefo"
 #Adding an API to the application
 api=Api(app)
 
@@ -41,6 +41,7 @@ class AdminLogin(Resource):
         if admin.password != hashlib.md5(password.encode("utf-8")).hexdigest():
             return make_response(jsonify("Incorrect password"), 401)
 
+        session["admin_id"]=admin.id
         return make_response(jsonify("Login successful"), 200)
 
 api.add_resource(AdminLogin, "/login")
@@ -75,12 +76,18 @@ class Dashboard(Resource):
         patient_count=Patient.query.count()
         doctor_count=Doctor.query.count()
         appoinments_count=Appointment.query.count()
-        
+
+        if  "admin_id" in session:
+            admin_id=session["admin_id"]
+            admin=Admin.query.get(admin_id)
+            admin_dict=AdminSchema(only=("first_name", "last_name")).dump(admin)
+
         return make_response(jsonify(
             {
                 "patients": patient_count,
                 "doctors": doctor_count,
-                "appointments": appoinments_count
+                "appointments": appoinments_count,
+                "admin": admin_dict
             }), 200)
 
 api.add_resource(Dashboard, "/dashboard")
@@ -232,9 +239,10 @@ class Appointments(Resource):
         date=datetime.strptime(request.json['date'],'%Y-%m-%d').date()
         time=datetime.strptime(request.json['time'], '%H:%M').time()
         purpose=request.json['purpose']
+        admin_id=session["admin_id"]
 
         if patient_id and doctor_id and date and time and purpose:
-            new_appointment=Appointment(patient_id=patient_id, doctor_id=doctor_id, date=date, time=time, purpose=purpose)
+            new_appointment=Appointment(patient_id=patient_id, doctor_id=doctor_id, date=date, time=time, purpose=purpose, admin_id=admin_id)
             db.session.add(new_appointment)
             db.session.commit()
             appointment_schema=AppointmentSchema()
@@ -245,5 +253,11 @@ class Appointments(Resource):
 
 api.add_resource(Appointments, "/appointments")
 
+class LogOut(Resource):
+    def post(self):
+        session.pop("admin_id", None)
+        return make_response(jsonify("Logged out successfully"), 200)
+
+api.add_resource(LogOut, "/logout")
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import Form from 'react-bootstrap/Form'
 import Row from "react-bootstrap/esm/Row";
@@ -17,7 +17,6 @@ const AppointmentsForm = ({appointments, patients, doctors, setAppointments}) =>
 
     const handleInputChange= e => setAppointmentData({...appointmentData, [e.target.id]: e.target.value})
 
-    console.log(appointmentData)
     const handleSubmit= e =>
     {
         e.preventDefault()

@@ -1,8 +1,10 @@
 from marshmallow import Schema, fields
 
 class AdminSchema(Schema):
-    class Meta:
-        fields=('first_name', 'last_name', 'email')
+    id=fields.Integer()
+    first_name=fields.Str(required=True)
+    last_name=fields.Str(required=True)
+    email=fields.Email(required=True)
 
 admin_schema=AdminSchema()
 admins_schema=AdminSchema(many=True)
