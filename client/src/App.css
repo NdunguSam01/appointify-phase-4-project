@@ -38,11 +38,18 @@
   width: 90% !important;
   margin: 20px auto;
 }
+@media (max-width:425px) 
+{
+  .login-form
+  {
+    width: 300px;
+  }  
+}
 @media(max-width:1023px)
 {
   .table thead
   {
-      display: none;
+    display: none;
   }
   .table, .table tbody, .table tr, .table td
   {
@@ -71,10 +78,3 @@
     text-align: left;
   }
 }
-/* @media(max-width:1440px)
-{
-	.table td, .table th
-	{
-		text-align: center;
-	}
-} */
