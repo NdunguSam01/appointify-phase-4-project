@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const AppointmentsTable = ({appointments}) => 
 {
     return (
@@ -17,11 +15,6 @@ const AppointmentsTable = ({appointments}) =>
                             <td>{date}</td>
                             <td>{time}</td>
                             <td>{purpose}</td>
-                            <td>
-                                <Link to={`/dashboard/appointments/${id}`}>
-                                    <button className="btn btn-dark">View details</button>
-                                </Link>
-                            </td>
                         </tr>
                     );
                 })

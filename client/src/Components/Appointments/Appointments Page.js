@@ -45,7 +45,6 @@ const Appointments = () =>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Purpose</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <AppointmentsTable appointments={appointments}/>
