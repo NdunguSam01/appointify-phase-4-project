@@ -70,6 +70,21 @@ class Register(Resource):
 
 api.add_resource(Register, "/register")
 
+class Dashboard(Resource):
+    def get(self):
+        patient_count=Patient.query.count()
+        doctor_count=Doctor.query.count()
+        appoinments_count=Appointment.query.count()
+        
+        return make_response(jsonify(
+            {
+                "patients": patient_count,
+                "doctors": doctor_count,
+                "appointments": appoinments_count
+            }), 200)
+
+api.add_resource(Dashboard, "/dashboard")
+
 class Patients(Resource):
     def get(self):
         patients=Patient.query.all()
