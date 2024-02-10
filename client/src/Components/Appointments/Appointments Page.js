@@ -28,7 +28,6 @@ const Appointments = () =>
 
     return ( 
         <>
-            <h1>Appointments Page</h1>
             <Accordion>
                 <Accordion.Item eventKey='0'>
                 <Accordion.Header>Create a new appointment</Accordion.Header>
