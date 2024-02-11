@@ -82,13 +82,17 @@ class Dashboard(Resource):
             admin=Admin.query.get(admin_id)
             admin_dict=AdminSchema(only=("first_name", "last_name")).dump(admin)
 
-        return make_response(jsonify(
-            {
-                "patients": patient_count,
-                "doctors": doctor_count,
-                "appointments": appoinments_count,
-                "admin": admin_dict
-            }), 200)
+            return make_response(jsonify(
+                {
+                    "loggedIn": True,
+                    "patients": patient_count,
+                    "doctors": doctor_count,
+                    "appointments": appoinments_count,
+                    "admin": admin_dict
+                }), 200)
+        
+        else:
+            return make_response(jsonify({"loggedIn": False}))
 
 api.add_resource(Dashboard, "/dashboard")
 
