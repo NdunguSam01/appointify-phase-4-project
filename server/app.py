@@ -6,11 +6,12 @@ from models import db, Admin, Patient, Doctor, Appointment
 import hashlib
 from datetime import datetime
 from schema import PatientSchema, DoctorSchema, AppointmentSchema, AdminSchema
+import os
 
 app=Flask(__name__)
 
 #Configuring the database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///appointify.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key="cksckdhsbidbkcldjiefo"
 #Adding an API to the application
