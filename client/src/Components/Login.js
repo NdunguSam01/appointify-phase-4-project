@@ -7,7 +7,8 @@ import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-const Login = () => 
+
+const Login = ({setLoggedIn}) => 
 {
     const navigate=useNavigate()
     const [loginFormData, setLoginFormData]=useState(
@@ -42,29 +43,30 @@ const Login = () =>
                 {
                     response.json()
                     .then(message =>
-                        {
-                            toast.success(message,
-                                {
-                                    position: "top-right"
-                                })
-                            
-                            setTimeout(()=>
+                    {
+                        toast.success(message,
                             {
-                                navigate("/dashboard")
-                            },2600)
-                        })
+                                position: "top-right"
+                            })
+                        
+                        setTimeout(()=>
+                        {
+                            navigate("/dashboard")
+                        },2600)
+                    })
+                    setLoggedIn(true)
                 }
                 else
                 {
                     response.json()
                     .then(data =>
-                        {
-                            toast.error(data,
-                                {
-                                    position: "top-right"
-                                })
-                        })
-                        .then(navigate("/"))
+                    {
+                        toast.error(data,
+                            {
+                                position: "top-right"
+                            })
+                    })
+                    .then(navigate("/"))
                 }
             })
     }
