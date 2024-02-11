@@ -26,9 +26,8 @@ const Dashboard = () =>
         setTimeout(() => 
         {
             toast.error("Kindly log in to continue", { toastId: "loginError" });
+            return <Navigate to="/"/>
         },100)
-
-        return <Navigate to="/"/>
     }
 
     return (
