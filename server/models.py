@@ -16,6 +16,10 @@ class Admin(db.Model):
 
     admin_added_appointments=db.relationship("Appointment", backref="admin")
 
+class GenderEnum(Enum):
+    MALE = 'Male'
+    FEMALE = 'Female'
+
 class Patient(db.Model):
 
     __tablename__ = "patients"
@@ -26,7 +30,7 @@ class Patient(db.Model):
     email=db.Column(db.String, unique=True, nullable=False)
     phone=db.Column(db.String, unique=True, nullable=False)
     dob=db.Column(db.String, nullable=False)
-    gender=db.Column(db.Enum('Male', 'Female'), name="gender" ,nullable=False)
+    gender = db.Column(db.Enum(GenderEnum), name="gender", nullable=False)
     blood_group=db.Column(db.String, nullable=False)
     address=db.Column(db.String, nullable=False)
 
@@ -35,7 +39,7 @@ class Patient(db.Model):
 
     @validates("gender")
     def validate_gender(self, key, gender):
-        genders=["Male", "Female"]
+        genders = [g.value for g in GenderEnum]
 
         if not gender:
             return ValueError("Gender cannot be empty")
@@ -64,7 +68,7 @@ class Doctor(db.Model):
     first_name=db.Column(db.String, nullable=False)
     last_name=db.Column(db.String, nullable=False)
     age=db.Column(db.Integer, nullable=False)
-    gender=db.Column(db.Enum('Male', 'Female'), name="gender", nullable=False)
+    gender = db.Column(db.Enum(GenderEnum), name="gender", nullable=False)
     department=db.Column(db.String, nullable=False)
     experience=db.Column(db.Integer, nullable=False)
 
@@ -79,7 +83,7 @@ class Doctor(db.Model):
     
     @validates("gender")
     def validate_gender(self, key, gender):
-        genders=["Male", "Female"]
+        genders = [g.value for g in GenderEnum]
 
         if not gender:
             return ValueError("Gender cannot be empty")
