@@ -108,4 +108,4 @@ class Appointment(db.Model):
     date=db.Column(db.Date, nullable=False)
     time=db.Column(db.Time, nullable=False)
     purpose=db.Column(db.String, nullable=False)
-    admin_id=db.Column(db.Integer, db.ForeignKey("admins.id"))
+    # admin_id=db.Column(db.Integer, db.ForeignKey("admins.id"))
