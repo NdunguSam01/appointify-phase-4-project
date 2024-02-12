@@ -30,6 +30,8 @@ class Index(Resource):
 api.add_resource(Index, "/")
 
 class AdminLogin(Resource):
+    def get(self):
+        return make_response(jsonify("Test"))
     def post(self):
         email=request.json["email"]
         password=request.json["password"]
