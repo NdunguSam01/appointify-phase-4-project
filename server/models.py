@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
 from sqlalchemy import Enum
-
 db=SQLAlchemy()
 
 class Admin(db.Model):
@@ -26,7 +25,7 @@ class Patient(db.Model):
     email=db.Column(db.String, unique=True, nullable=False)
     phone=db.Column(db.String, unique=True, nullable=False)
     dob=db.Column(db.String, nullable=False)
-    gender = db.Column(Enum("Male","Female", name="gender"), nullable=False)
+    gender = db.Column(Enum("Male", "Female", name="Gender"),nullable=False)
     blood_group=db.Column(db.String, nullable=False)
     address=db.Column(db.String, nullable=False)
 
@@ -64,7 +63,7 @@ class Doctor(db.Model):
     first_name=db.Column(db.String, nullable=False)
     last_name=db.Column(db.String, nullable=False)
     age=db.Column(db.Integer, nullable=False)
-    gender = db.Column(Enum("Male","Female", name="gender"), nullable=False)
+    gender = db.Column(Enum("Male", "Female", name="Gender"),nullable=False)
     department=db.Column(db.String, nullable=False)
     experience=db.Column(db.Integer, nullable=False)
 
