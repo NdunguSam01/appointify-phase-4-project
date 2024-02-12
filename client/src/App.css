@@ -24,14 +24,8 @@
 }
 .registration-form
 {
-  margin: 50px auto;
-  width: 800px;
+  margin: 30px auto;
   padding: 20px;
-}
-.registration-form button
-{
-  display: flex;
-  justify-content: center;
 }
 .table, .accordion, .form
 {
@@ -56,10 +50,6 @@
 		display: block;
 		width: 100%;
 	}
-  /* .table tr
-  {
-		margin-bottom:2px;
-	} */
 	.table td
   {
 		text-align: right;
