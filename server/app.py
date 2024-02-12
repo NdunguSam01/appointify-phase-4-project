@@ -246,10 +246,10 @@ class Appointments(Resource):
         date=datetime.strptime(request.json['date'],'%Y-%m-%d').date()
         time=datetime.strptime(request.json['time'], '%H:%M').time()
         purpose=request.json['purpose']
-        admin_id=session["admin_id"]
+        # admin_id=session["admin_id"]
 
         if patient_id and doctor_id and date and time and purpose:
-            new_appointment=Appointment(patient_id=patient_id, doctor_id=doctor_id, date=date, time=time, purpose=purpose, admin_id=admin_id)
+            new_appointment=Appointment(patient_id=patient_id, doctor_id=doctor_id, date=date, time=time, purpose=purpose)
             db.session.add(new_appointment)
             db.session.commit()
             appointment_schema=AppointmentSchema()
