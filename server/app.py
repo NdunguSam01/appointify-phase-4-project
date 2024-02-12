@@ -112,7 +112,7 @@ class Patients(Resource):
         email=request.json["email"]
         phone=request.json["phone_number"]
         dob=request.json["dob"]
-        gender=request.json["gender"]
+        gender=request.json["gender"].upper()
         address=request.json["address"]
         blood_group=request.json["blood_group"]
         gender_validation=Patient().validate_gender(key=gender, gender=gender)
@@ -120,11 +120,11 @@ class Patients(Resource):
         if gender_validation != gender:
             return make_response(jsonify("Gender must be either Male or Female"), 400)
         
-        if gender == "Male":
-            gender=GenderEnum.MALE
+        # if gender == "Male":
+        #     gender=GenderEnum.MALE
         
-        elif gender =="Female":
-            gender=GenderEnum.FEMALE
+        # elif gender =="Female":
+        #     gender=GenderEnum.FEMALE
 
         new_patient=Patient(first_name=first_name, last_name=last_name, email=email, phone=phone, dob=dob, gender=gender, address=address, blood_group=blood_group)
         db.session.add(new_patient)
@@ -146,7 +146,7 @@ class Doctors(Resource):
         first_name=request.json["first_name"]
         last_name=request.json["last_name"]
         age=int(request.json["age"])
-        gender=request.json["gender"]
+        gender=request.json["gender"].upper()
         department=request.json["department"]
         experience=int(request.json["experience"])
 
@@ -163,12 +163,12 @@ class Doctors(Resource):
         elif experience_validation != experience:
             return make_response(jsonify("Years of experience must be between 1 and 60"), 400)
         
-        if gender == "Male":
-            gender=GenderEnum.MALE
+        # if gender == "Male":
+        #     gender=GenderEnum.MALE
         
-        elif gender =="Female":
-            gender=GenderEnum.FEMALE
-            
+        # elif gender =="Female":
+        #     gender=GenderEnum.FEMALE
+
         new_doctor=Doctor(last_name=last_name, age=age, experience=experience, first_name=first_name, department=department, gender=gender)
         db.session.add(new_doctor)
         db.session.commit()
