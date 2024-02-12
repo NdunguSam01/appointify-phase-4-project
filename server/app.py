@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, session, make_response
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
-from .models import db, Admin, Patient, Doctor, Appointment, GenderEnum
+from .models import db, Admin, Patient, Doctor, Appointment
 import hashlib
 from datetime import datetime
 from .schema import PatientSchema, DoctorSchema, AppointmentSchema, AdminSchema
