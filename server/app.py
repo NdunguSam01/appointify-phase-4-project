@@ -112,7 +112,7 @@ class Patients(Resource):
         email=request.json["email"]
         phone=request.json["phone_number"]
         dob=request.json["dob"]
-        gender=request.json["gender"].upper()
+        gender=request.json["gender"]
         address=request.json["address"]
         blood_group=request.json["blood_group"]
         gender_validation=Patient().validate_gender(key=gender, gender=gender)
@@ -146,7 +146,7 @@ class Doctors(Resource):
         first_name=request.json["first_name"]
         last_name=request.json["last_name"]
         age=int(request.json["age"])
-        gender=request.json["gender"].upper()
+        gender=request.json["gender"]
         department=request.json["department"]
         experience=int(request.json["experience"])
 

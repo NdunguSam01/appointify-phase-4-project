@@ -39,7 +39,7 @@ class Patient(db.Model):
 
     @validates("gender")
     def validate_gender(self, key, gender):
-        genders = [g.value for g in GenderEnum]
+        genders = ["Male", "Female"]
 
         if not gender:
             return ValueError("Gender cannot be empty")
@@ -83,7 +83,7 @@ class Doctor(db.Model):
     
     @validates("gender")
     def validate_gender(self, key, gender):
-        genders = [g.value for g in GenderEnum]
+        genders = ["Male", "Female"]
 
         if not gender:
             return ValueError("Gender cannot be empty")
