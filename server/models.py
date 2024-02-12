@@ -13,7 +13,7 @@ class Admin(db.Model):
     email=db.Column(db.String, unique=True)
     password=db.Column(db.String, nullable=False)
 
-    admin_added_appointments=db.relationship("Appointment", backref="admin")
+    # admin_added_appointments=db.relationship("Appointment", backref="admin")
 
 class Patient(db.Model):
 
