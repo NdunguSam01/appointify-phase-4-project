@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/esm/Row';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 const RegistrationForm = () => 
 {
     const navigate=useNavigate()
@@ -97,7 +97,7 @@ const RegistrationForm = () =>
                         <Form.Control type='name' id='last_name' onChange={handleChange} placeholder='Last Name' required></Form.Control>
                     </Form.Group>
 
-                    <Form.Group className='col-md-6 mb-3'>
+                    <Form.Group className='col-md-12 mb-3'>
                         <Form.Label>Email Address</Form.Label>
                         <Form.Control type="email" id='email' placeholder='Email address' onChange={handleChange} required />
                     </Form.Group>
@@ -110,7 +110,10 @@ const RegistrationForm = () =>
                         <Form.Control type='password' id='confirm_password' placeholder='Confirm your password' onChange={handleChange} required></Form.Control>
                     </Form.Group>
                 </Row>
-                <Button variant='primary' type='submit' className='mt-3 col-md-12'>Submit</Button>
+                <div className="buttons">
+                    <Button variant='primary' type='submit' className='col-md-3 mx-auto my-3'>Submit</Button>
+                    <Link to="/" className='btn btn-dark col-md-3 mx-auto my-3'>Already have an account?</Link>
+                </div>
             </Form>
         </>
      );

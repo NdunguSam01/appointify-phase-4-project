@@ -27,6 +27,11 @@
   margin: 30px auto;
   padding: 20px;
 }
+.registration-form .buttons
+{
+  display: flex;
+  align-items: center;
+}
 .table, .accordion, .form
 {
   width: 90% !important;
