@@ -1,8 +1,8 @@
-"""Assigned a name value to the enum
+"""Created the tables and the relationships
 
-Revision ID: 08df48edf964
+Revision ID: 771ebb35d450
 Revises: 
-Create Date: 2024-02-12 11:03:32.958082
+Create Date: 2024-02-12 12:10:02.345460
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '08df48edf964'
+revision = '771ebb35d450'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,7 +32,7 @@ def upgrade():
     sa.Column('first_name', sa.String(), nullable=False),
     sa.Column('last_name', sa.String(), nullable=False),
     sa.Column('age', sa.Integer(), nullable=False),
-    sa.Column('gender', sa.Enum('MALE', 'FEMALE', name='genderenum'), nullable=False),
+    sa.Column('gender', sa.Enum('Male', 'Female', name='Gender'), nullable=False),
     sa.Column('department', sa.String(), nullable=False),
     sa.Column('experience', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id')
@@ -44,7 +44,7 @@ def upgrade():
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('phone', sa.String(), nullable=False),
     sa.Column('dob', sa.String(), nullable=False),
-    sa.Column('gender', sa.Enum('MALE', 'FEMALE', name='genderenum'), nullable=False),
+    sa.Column('gender', sa.Enum('Male', 'Female', name='Gender'), nullable=False),
     sa.Column('blood_group', sa.String(), nullable=False),
     sa.Column('address', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
