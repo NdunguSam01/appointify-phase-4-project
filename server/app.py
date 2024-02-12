@@ -2,15 +2,16 @@ from flask import Flask, jsonify, request, session, make_response
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
-from models import db, Admin, Patient, Doctor, Appointment
+from .models import db, Admin, Patient, Doctor, Appointment
 import hashlib
 from datetime import datetime
-from schema import PatientSchema, DoctorSchema, AppointmentSchema, AdminSchema
+from .schema import PatientSchema, DoctorSchema, AppointmentSchema, AdminSchema
+import os
 
 app=Flask(__name__)
 
 #Configuring the database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///appointify.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key="cksckdhsbidbkcldjiefo"
 #Adding an API to the application
@@ -29,6 +30,8 @@ class Index(Resource):
 api.add_resource(Index, "/")
 
 class AdminLogin(Resource):
+    def get(self):
+        return make_response(jsonify("Test"))
     def post(self):
         email=request.json["email"]
         password=request.json["password"]
@@ -42,6 +45,7 @@ class AdminLogin(Resource):
             return make_response(jsonify("Incorrect password"), 401)
 
         session["admin_id"]=admin.id
+        print(session["admin_id"])
         return make_response(jsonify("Login successful"), 200)
 
 api.add_resource(AdminLogin, "/login")
@@ -116,7 +120,7 @@ class Patients(Resource):
 
         if gender_validation != gender:
             return make_response(jsonify("Gender must be either Male or Female"), 400)
-        
+
         new_patient=Patient(first_name=first_name, last_name=last_name, email=email, phone=phone, dob=dob, gender=gender, address=address, blood_group=blood_group)
         db.session.add(new_patient)
         db.session.commit()
@@ -153,7 +157,7 @@ class Doctors(Resource):
 
         elif experience_validation != experience:
             return make_response(jsonify("Years of experience must be between 1 and 60"), 400)
-        
+
         new_doctor=Doctor(last_name=last_name, age=age, experience=experience, first_name=first_name, department=department, gender=gender)
         db.session.add(new_doctor)
         db.session.commit()
@@ -243,10 +247,10 @@ class Appointments(Resource):
         date=datetime.strptime(request.json['date'],'%Y-%m-%d').date()
         time=datetime.strptime(request.json['time'], '%H:%M').time()
         purpose=request.json['purpose']
-        admin_id=session["admin_id"]
+        # admin_id=session["admin_id"]
 
         if patient_id and doctor_id and date and time and purpose:
-            new_appointment=Appointment(patient_id=patient_id, doctor_id=doctor_id, date=date, time=time, purpose=purpose, admin_id=admin_id)
+            new_appointment=Appointment(patient_id=patient_id, doctor_id=doctor_id, date=date, time=time, purpose=purpose)
             db.session.add(new_appointment)
             db.session.commit()
             appointment_schema=AppointmentSchema()

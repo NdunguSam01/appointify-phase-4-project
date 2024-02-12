@@ -24,14 +24,13 @@
 }
 .registration-form
 {
-  margin: 50px auto;
-  width: 800px;
+  margin: 30px auto;
   padding: 20px;
 }
-.registration-form button
+.registration-form .buttons
 {
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 .table, .accordion, .form
 {
@@ -45,6 +44,13 @@
     width: 300px;
   }  
 }
+@media (max-width:767px)
+{
+  .registration-form .buttons
+{
+  flex-direction: column;
+}
+}
 @media(max-width:1023px)
 {
   .table thead
@@ -56,10 +62,6 @@
 		display: block;
 		width: 100%;
 	}
-  /* .table tr
-  {
-		margin-bottom:2px;
-	} */
 	.table td
   {
 		text-align: right;

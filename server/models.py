@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
+from sqlalchemy import Enum
 db=SQLAlchemy()
 
 class Admin(db.Model):
@@ -12,7 +13,7 @@ class Admin(db.Model):
     email=db.Column(db.String, unique=True)
     password=db.Column(db.String, nullable=False)
 
-    admin_added_appointments=db.relationship("Appointment", backref="admin")
+    # admin_added_appointments=db.relationship("Appointment", backref="admin")
 
 class Patient(db.Model):
 
@@ -24,7 +25,7 @@ class Patient(db.Model):
     email=db.Column(db.String, unique=True, nullable=False)
     phone=db.Column(db.String, unique=True, nullable=False)
     dob=db.Column(db.String, nullable=False)
-    gender=db.Column(db.Enum('Male', 'Female'), nullable=False)
+    gender = db.Column(Enum("Male", "Female", name="Gender"),nullable=False)
     blood_group=db.Column(db.String, nullable=False)
     address=db.Column(db.String, nullable=False)
 
@@ -33,7 +34,7 @@ class Patient(db.Model):
 
     @validates("gender")
     def validate_gender(self, key, gender):
-        genders=["Male", "Female"]
+        genders = ["Male", "Female"]
 
         if not gender:
             return ValueError("Gender cannot be empty")
@@ -62,7 +63,7 @@ class Doctor(db.Model):
     first_name=db.Column(db.String, nullable=False)
     last_name=db.Column(db.String, nullable=False)
     age=db.Column(db.Integer, nullable=False)
-    gender=db.Column(db.Enum('Male', 'Female'), nullable=False)
+    gender = db.Column(Enum("Male", "Female", name="Gender"),nullable=False)
     department=db.Column(db.String, nullable=False)
     experience=db.Column(db.Integer, nullable=False)
 
@@ -77,7 +78,7 @@ class Doctor(db.Model):
     
     @validates("gender")
     def validate_gender(self, key, gender):
-        genders=["Male", "Female"]
+        genders = ["Male", "Female"]
 
         if not gender:
             return ValueError("Gender cannot be empty")
@@ -107,4 +108,4 @@ class Appointment(db.Model):
     date=db.Column(db.Date, nullable=False)
     time=db.Column(db.Time, nullable=False)
     purpose=db.Column(db.String, nullable=False)
-    admin_id=db.Column(db.Integer, db.ForeignKey("admins.id"))
+    # admin_id=db.Column(db.Integer, db.ForeignKey("admins.id"))

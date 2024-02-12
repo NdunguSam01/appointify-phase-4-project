@@ -36,8 +36,8 @@ class DoctorSchema(Schema):
 
 class AppointmentSchema(Schema):
     id=fields.Integer()
-    doctor = fields.Nested(DoctorSchema, allow_none=False)
-    patient = fields.Nested(PatientSchema, allow_none=False)
+    doctor = fields.Nested(DoctorSchema(only=("first_name", "last_name")), allow_none=False)
+    patient = fields.Nested(PatientSchema(only=("first_name", "last_name")), allow_none=False)
     date = fields.Date(format='%Y-%m-%d' , required=True)
     time=fields.Time(format="%I:%M %p" ,required=True)  
     purpose=fields.Str(required=True) 

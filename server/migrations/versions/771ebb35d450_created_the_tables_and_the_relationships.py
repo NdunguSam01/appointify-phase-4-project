@@ -1,8 +1,8 @@
-"""Created the models and their relationship
+"""Created the tables and the relationships
 
-Revision ID: 75e4b394a0ff
+Revision ID: 771ebb35d450
 Revises: 
-Create Date: 2024-02-06 14:35:34.712408
+Create Date: 2024-02-12 12:10:02.345460
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '75e4b394a0ff'
+revision = '771ebb35d450'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,7 +32,7 @@ def upgrade():
     sa.Column('first_name', sa.String(), nullable=False),
     sa.Column('last_name', sa.String(), nullable=False),
     sa.Column('age', sa.Integer(), nullable=False),
-    sa.Column('gender', sa.Enum('Male', 'Female'), nullable=False),
+    sa.Column('gender', sa.Enum('Male', 'Female', name='Gender'), nullable=False),
     sa.Column('department', sa.String(), nullable=False),
     sa.Column('experience', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id')
@@ -43,8 +43,10 @@ def upgrade():
     sa.Column('last_name', sa.String(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('phone', sa.String(), nullable=False),
-    sa.Column('age', sa.Integer(), nullable=False),
-    sa.Column('gender', sa.Enum('Male', 'Female'), nullable=False),
+    sa.Column('dob', sa.String(), nullable=False),
+    sa.Column('gender', sa.Enum('Male', 'Female', name='Gender'), nullable=False),
+    sa.Column('blood_group', sa.String(), nullable=False),
+    sa.Column('address', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('phone')
@@ -55,7 +57,7 @@ def upgrade():
     sa.Column('doctor_id', sa.Integer(), nullable=True),
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('time', sa.Time(), nullable=False),
-    sa.Column('puprose', sa.String(), nullable=False),
+    sa.Column('purpose', sa.String(), nullable=False),
     sa.Column('admin_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['admin_id'], ['admins.id'], ),
     sa.ForeignKeyConstraint(['doctor_id'], ['doctors.id'], ),
