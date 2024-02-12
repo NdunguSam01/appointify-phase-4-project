@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, session, make_response
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
-from .models import db, Admin, Patient, Doctor, Appointment
+from .models import db, Admin, Patient, Doctor, Appointment, GenderEnum
 import hashlib
 from datetime import datetime
 from .schema import PatientSchema, DoctorSchema, AppointmentSchema, AdminSchema
@@ -120,6 +120,12 @@ class Patients(Resource):
         if gender_validation != gender:
             return make_response(jsonify("Gender must be either Male or Female"), 400)
         
+        if gender == "Male":
+            gender=GenderEnum.MALE
+        
+        elif gender =="Female":
+            gender=GenderEnum.FEMALE
+
         new_patient=Patient(first_name=first_name, last_name=last_name, email=email, phone=phone, dob=dob, gender=gender, address=address, blood_group=blood_group)
         db.session.add(new_patient)
         db.session.commit()
