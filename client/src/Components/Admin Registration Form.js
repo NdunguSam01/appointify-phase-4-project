@@ -112,7 +112,7 @@ const RegistrationForm = () =>
                 </Row>
                 <div className="buttons">
                     <Button variant='primary' type='submit' className='col-md-3 mx-auto my-3'>Submit</Button>
-                    <Link to="/" className='btn btn-dark col-md-3 mx-auto my-3'>Already have an account?</Link>
+                    <Link to="/" className='btn btn-dark col-md-4 mx-auto my-3'>Already have an account?</Link>
                 </div>
             </Form>
         </>
