@@ -46,7 +46,12 @@ class AdminLogin(Resource):
 
         session["admin_id"]=admin.id
         print(session["admin_id"])
-        return make_response(jsonify("Login successful"), 200)
+        return make_response(jsonify(
+            {
+                "message": "Login successful",
+                "admin_id": session["admin_id"]
+            }
+        ), 200)
 
 api.add_resource(AdminLogin, "/login")
 
