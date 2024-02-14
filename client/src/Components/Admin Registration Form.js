@@ -44,7 +44,8 @@ const RegistrationForm = () =>
                 response.json()
                 .then(message =>
                     {
-                        toast.success(message,
+                        
+                        toast.success(message.message,
                         {
                         position:'top-right',
                         })
@@ -60,7 +61,6 @@ const RegistrationForm = () =>
                 response.json()
                 .then(error => 
                     {
-                        console.log(error)
                         toast.error(error,
                         {
                         position:'top-right',

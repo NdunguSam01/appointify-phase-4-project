@@ -78,7 +78,13 @@ class Register(Resource):
         new_admin=Admin(last_name=last_name, email=email, first_name=first_name, password=hashed_password)
         db.session.add(new_admin)
         db.session.commit()
-        return make_response(jsonify("Account created successfully"), 201)
+        access_token=create_access_token(identity=new_admin.id)
+        return make_response(jsonify(
+            {
+                "message": "Account created successfully",
+                "access token": access_token
+            }
+        ), 201)
 
 api.add_resource(Register, "/register")
 
