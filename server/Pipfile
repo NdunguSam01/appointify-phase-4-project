@@ -19,6 +19,7 @@ psycopg2-binary = "*"
 sqlalchemy-serializer = "*"
 flask-session = "*"
 load-dotenv = "*"
+redis = "*"
 
 [dev-packages]
 
