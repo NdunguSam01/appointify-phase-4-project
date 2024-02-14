@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session, make_response
+from flask import Flask, jsonify, request, session, make_response, session
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -7,7 +7,7 @@ import hashlib
 from datetime import datetime
 from .schema import PatientSchema, DoctorSchema, AppointmentSchema, AdminSchema
 import os
-
+from flask_session import Session
 app=Flask(__name__)
 
 #Configuring the database
@@ -18,7 +18,7 @@ app.secret_key="cksckdhsbidbkcldjiefo"
 api=Api(app)
 
 CORS(app)
-
+server_session=Session(app)
 #Creating a database migration
 migrate=Migrate(app, db)
 db.init_app(app)
@@ -32,6 +32,7 @@ api.add_resource(Index, "/")
 class AdminLogin(Resource):
     def get(self):
         return make_response(jsonify("Test"))
+    
     def post(self):
         email=request.json["email"]
         password=request.json["password"]
@@ -80,17 +81,15 @@ class Dashboard(Resource):
         doctor_count=Doctor.query.count()
         appoinments_count=Appointment.query.count()
 
-        if 'admin_id' not in session:
+        admin_id=session.get("admin_id")
+
+        if not admin_id:
             print("Admin ID not there")
             return make_response(jsonify({"loggedIn": False}))
         
-        admin_id=session["admin_id"]
         admin=Admin.query.get(admin_id)
         admin_dict=AdminSchema(only=("first_name", "last_name")).dump(admin)
 
-        print(f"Admin ID: {admin_id}")
-        print(admin)
-        print(admin_dict)
         return make_response(jsonify(
             {
                 "loggedIn": True,
@@ -99,8 +98,6 @@ class Dashboard(Resource):
                 "appointments": appoinments_count,
                 "admin": admin_dict
             }), 200)
-        
-            
 
 api.add_resource(Dashboard, "/dashboard")
 
@@ -267,7 +264,7 @@ api.add_resource(Appointments, "/appointments")
 
 class LogOut(Resource):
     def post(self):
-        session.pop("admin_id", None)
+        session.pop("admin_id")
         return make_response(jsonify("Logged out successfully"), 200)
 
 api.add_resource(LogOut, "/logout")
