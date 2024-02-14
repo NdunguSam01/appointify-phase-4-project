@@ -12,18 +12,14 @@ from .config import ApplicationConfig
 
 app=Flask(__name__)
 
-# app.secret_key="this is my secret key"
-
-#Configuring the database
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 app.config.from_object(ApplicationConfig)
+
 #Adding an API to the application
 api=Api(app)
 
 CORS(app)
 server_session=Session(app)
+
 #Creating a database migration
 migrate=Migrate(app, db)
 db.init_app(app)
