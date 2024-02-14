@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session, make_response, session
+from flask import Flask, jsonify, request, session, make_response
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -47,6 +47,7 @@ class AdminLogin(Resource):
             return make_response(jsonify("Incorrect password"), 401)
 
         session["admin_id"]=admin.id
+        print(session["admin_id"])
         return make_response(jsonify("Login successful"), 200)
 
 api.add_resource(AdminLogin, "/login")
@@ -83,7 +84,7 @@ class Dashboard(Resource):
         appoinments_count=Appointment.query.count()
 
         admin_id=session.get("admin_id")
-
+        print(admin_id)
         if not admin_id:
             print("Admin ID not there")
             return make_response(jsonify({"loggedIn": False}))
