@@ -12,7 +12,7 @@ const Appointments = () =>
 
     useEffect(()=>
     {
-        fetch("/appointments")
+        fetch("https://appointify-project-api.onrender.com/appointments")
         .then(response => response.json())
         .then(appointments => 
             {

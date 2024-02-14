@@ -9,7 +9,7 @@ const PatientsPage = () =>
 
   useEffect(()=>
   {
-    fetch("/patients")
+    fetch("https://appointify-project-api.onrender.com/patients")
     .then(response => response.json())
     .then(data => setPatientData(data))
   },[])

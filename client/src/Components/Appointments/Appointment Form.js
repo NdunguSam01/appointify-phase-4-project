@@ -21,7 +21,7 @@ const AppointmentsForm = ({appointments, patients, doctors, setAppointments}) =>
     {
         e.preventDefault()
         console.log("Form submitted")
-        fetch("/appointments",
+        fetch("https://appointify-project-api.onrender.com/appointments",
         {
             method: "POST",
             headers:

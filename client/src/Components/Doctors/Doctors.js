@@ -9,7 +9,7 @@ const Doctors = () =>
     const [doctors, setDoctors]=useState([])
     useEffect(()=>
     {
-       fetch("/doctors")
+       fetch("https://appointify-project-api.onrender.com/doctors")
        .then(response => response.json())
        .then(data => setDoctors(data)) 
     },[])

@@ -28,7 +28,7 @@ const RegistrationForm = () =>
     const register= e =>
     {   
         e.preventDefault()
-        fetch("/register", 
+        fetch("https://appointify-project-api.onrender.com/register", 
         {
             method: "POST",
             headers:

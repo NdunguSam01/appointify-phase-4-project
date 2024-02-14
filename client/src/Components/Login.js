@@ -28,7 +28,7 @@ const Login = ({setLoggedIn}) =>
     const login= e =>
     {
         e.preventDefault()
-        fetch("/login", 
+        fetch("https://appointify-project-api.onrender.com/login", 
         {
             method: "POST",
             headers:
