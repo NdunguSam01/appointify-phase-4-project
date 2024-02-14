@@ -18,6 +18,7 @@ gunicorn = "*"
 psycopg2-binary = "*"
 sqlalchemy-serializer = "*"
 flask-session = "*"
+load-dotenv = "*"
 
 [dev-packages]
 
