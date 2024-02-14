@@ -81,22 +81,26 @@ class Dashboard(Resource):
         doctor_count=Doctor.query.count()
         appoinments_count=Appointment.query.count()
 
-        if  "admin_id" in session:
-            admin_id=session["admin_id"]
-            admin=Admin.query.get(admin_id)
-            admin_dict=AdminSchema(only=("first_name", "last_name")).dump(admin)
-
-            return make_response(jsonify(
-                {
-                    "loggedIn": True,
-                    "patients": patient_count,
-                    "doctors": doctor_count,
-                    "appointments": appoinments_count,
-                    "admin": admin_dict
-                }), 200)
-        
-        else:
+        if not session["admin_id"]:
             return make_response(jsonify({"loggedIn": False}))
+        
+        admin_id=session["admin_id"]
+        admin=Admin.query.get(admin_id)
+        admin_dict=AdminSchema(only=("first_name", "last_name")).dump(admin)
+
+        print(admin_id)
+        print(admin)
+        print(admin_dict)
+        return make_response(jsonify(
+            {
+                "loggedIn": True,
+                "patients": patient_count,
+                "doctors": doctor_count,
+                "appointments": appoinments_count,
+                "admin": admin_dict
+            }), 200)
+        
+            
 
 api.add_resource(Dashboard, "/dashboard")
 
