@@ -82,6 +82,7 @@ class Dashboard(Resource):
         appoinments_count=Appointment.query.count()
 
         if 'admin_id' not in session:
+            print("Admin ID not there")
             return make_response(jsonify({"loggedIn": False}))
         
         admin_id=session["admin_id"]
