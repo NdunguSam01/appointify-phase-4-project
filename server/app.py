@@ -88,7 +88,7 @@ class Dashboard(Resource):
         admin=Admin.query.get(admin_id)
         admin_dict=AdminSchema(only=("first_name", "last_name")).dump(admin)
 
-        print(admin_id)
+        print(f"Admin ID: {admin_id}")
         print(admin)
         print(admin_dict)
         return make_response(jsonify(
