@@ -45,6 +45,7 @@ const Login = ({setLoggedIn, setAccessToken}) =>
                     .then(message =>
                     {
                         setAccessToken(message.access_token)
+                        setLoggedIn(true)
                         toast.success(message.message,
                             {
                                 position: "top-right"
@@ -55,7 +56,6 @@ const Login = ({setLoggedIn, setAccessToken}) =>
                             navigate("/dashboard")
                         },2600)
                     })
-                    setLoggedIn(true)
                 }
                 else
                 {
