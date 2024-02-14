@@ -40,7 +40,7 @@ const PatientRegistrationForm = ({patientData, setPatientData}) =>
   const handleSubmit = (e) => 
   {
     e.preventDefault();  
-    fetch("/patients",
+    fetch("https://appointify-project-api.onrender.com/patients",
     {
       method: "POST",
       headers:

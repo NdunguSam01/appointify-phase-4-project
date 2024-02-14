@@ -11,7 +11,7 @@ const Home = () =>
 
     useEffect(()=>
     {
-        fetch("/dashboard")
+        fetch("https://appointify-project-api.onrender.com/dashboard")
         .then(response => response.json())
         .then(data => 
             {
