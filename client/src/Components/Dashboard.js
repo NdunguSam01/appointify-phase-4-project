@@ -8,7 +8,6 @@ import Home from "./Home";
 
 const Dashboard = ({loggedIn, accessToken}) => 
 {
-    console.log(accessToken)
     return (
         <>
             {loggedIn ?

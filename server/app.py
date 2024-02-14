@@ -277,6 +277,7 @@ class Appointments(Resource):
 api.add_resource(Appointments, "/appointments")
 
 class LogOut(Resource):
+    @jwt_required()
     def post(self):
         session.pop("admin_id")
         return make_response(jsonify("Logged out successfully"), 200)
