@@ -18,8 +18,8 @@ app.config.from_object(ApplicationConfig)
 api=Api(app)
 
 CORS(app)
-server_session=Session()
-server_session.init_app(app)
+server_session=Session(app)
+# server_session.init_app(app)
 
 #Creating a database migration
 migrate=Migrate(app, db)
