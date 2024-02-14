@@ -8,12 +8,15 @@ from datetime import datetime
 from .schema import PatientSchema, DoctorSchema, AppointmentSchema, AdminSchema
 import os
 from flask_session import Session
+
 app=Flask(__name__)
+
+app.secret_key="this is my secret key"
 
 #Configuring the database
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key="cksckdhsbidbkcldjiefo"
+
 #Adding an API to the application
 api=Api(app)
 
