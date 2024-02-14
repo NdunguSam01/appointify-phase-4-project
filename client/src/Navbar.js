@@ -3,14 +3,18 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Navbar = () => 
+const Navbar = ({accessToken}) => 
 {
   const navigate=useNavigate()
   const handleLogOut = ()=>
   {
     fetch("/logout",
     {
-      method: "POST"
+      method: "POST",
+      headers:
+      {
+          "Authorization": `Bearer ${accessToken}`
+      }
     })
     .then(response =>
       {

@@ -13,7 +13,7 @@ const Dashboard = ({loggedIn, accessToken}) =>
         <>
             {loggedIn ?
             <>
-                <Navbar />
+                <Navbar accessToken={accessToken}/>
                 <Outlet />
                 <Routes>
                     <Route path="/" element={<Home accessToken={accessToken}/>} />
