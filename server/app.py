@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session, make_response
+from flask import Flask, jsonify, request, make_response
 from flask_restful import Api, Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -46,8 +46,8 @@ class AdminLogin(Resource):
         if admin.password != hashlib.md5(password.encode("utf-8")).hexdigest():
             return make_response(jsonify("Incorrect password"), 401)
 
-        session["admin_id"]=admin.id
-        print(session["admin_id"])
+        server_session["admin_id"]=admin.id
+        print(server_session["admin_id"])
         return make_response(jsonify("Login successful"), 200)
 
 api.add_resource(AdminLogin, "/login")
@@ -83,7 +83,7 @@ class Dashboard(Resource):
         doctor_count=Doctor.query.count()
         appoinments_count=Appointment.query.count()
 
-        admin_id=session.get("admin_id")
+        admin_id=server_session.get("admin_id")
         print(admin_id)
         if not admin_id:
             print("Admin ID not there")
