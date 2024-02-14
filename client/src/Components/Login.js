@@ -44,7 +44,7 @@ const Login = ({setLoggedIn}) =>
                     response.json()
                     .then(message =>
                     {
-                        toast.success(message,
+                        toast.success(message.message,
                             {
                                 position: "top-right"
                             })

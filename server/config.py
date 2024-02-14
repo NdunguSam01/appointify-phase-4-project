@@ -5,7 +5,7 @@ import redis
 load_dotenv()
 
 class ApplicationConfig:
-    SECRET_KEY = os.environ["SECRET_KEY"]
+    JWT_SECRET_KEY = os.environ["SECRET_KEY"]
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS= False

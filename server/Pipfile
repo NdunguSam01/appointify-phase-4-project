@@ -20,6 +20,7 @@ sqlalchemy-serializer = "*"
 flask-session = "*"
 load-dotenv = "*"
 redis = "*"
+flask-jwt-extended = "*"
 
 [dev-packages]
 

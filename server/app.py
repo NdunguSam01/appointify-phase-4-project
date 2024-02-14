@@ -9,7 +9,7 @@ from .schema import PatientSchema, DoctorSchema, AppointmentSchema, AdminSchema
 import os
 from flask_session import Session
 from .config import ApplicationConfig
-
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, JWTManager
 app=Flask(__name__)
 
 app.config.from_object(ApplicationConfig)
@@ -18,7 +18,7 @@ app.config.from_object(ApplicationConfig)
 api=Api(app)
 
 CORS(app)
-server_session=Session(app)
+jwt=JWTManager(app)
 # server_session.init_app(app)
 
 #Creating a database migration
@@ -47,9 +47,13 @@ class AdminLogin(Resource):
         if admin.password != hashlib.md5(password.encode("utf-8")).hexdigest():
             return make_response(jsonify("Incorrect password"), 401)
 
-        session["admin_id"]=admin.id
-        print(session["admin_id"])
-        return make_response(jsonify("Login successful"), 200)
+        access_token=create_access_token(identity=admin.id)
+        return make_response(jsonify(
+            {
+                "message": "Login successful",
+                "access_token": access_token
+            }
+        ), 200)
 
 api.add_resource(AdminLogin, "/login")
 
@@ -79,12 +83,13 @@ class Register(Resource):
 api.add_resource(Register, "/register")
 
 class Dashboard(Resource):
+    @jwt_required()
     def get(self):
         patient_count=Patient.query.count()
         doctor_count=Doctor.query.count()
         appoinments_count=Appointment.query.count()
 
-        admin_id=session.get("admin_id")
+        admin_id=get_jwt_identity()
         print(admin_id)
         if not admin_id:
             print("Admin ID not there")
