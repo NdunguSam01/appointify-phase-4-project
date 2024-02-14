@@ -2,7 +2,8 @@ import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/esm/Col';
 import { useState, useEffect } from 'react';
-const Home = () => 
+
+const Home = ({accessToken}) => 
 {
     const [patientCount, setPatientCount]=useState(0)
     const [doctorsCount, setDoctorsCount]=useState(0)
@@ -11,7 +12,14 @@ const Home = () =>
 
     useEffect(()=>
     {
-        fetch("https://appointify-project-api.onrender.com/dashboard")
+        fetch("https://appointify-project-api.onrender.com/dashboard",
+        {
+            method: "GET",
+            headers:
+            {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        })
         .then(response => response.json())
         .then(data => 
             {

@@ -6,8 +6,9 @@ import Navbar from '../Navbar'
 import Appointments from "./Appointments/Appointments Page";
 import Home from "./Home";
 
-const Dashboard = ({loggedIn}) => 
+const Dashboard = ({loggedIn, accessToken}) => 
 {
+    console.log(accessToken)
     return (
         <>
             {loggedIn ?
@@ -15,7 +16,7 @@ const Dashboard = ({loggedIn}) =>
                 <Navbar />
                 <Outlet />
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Home accessToken={accessToken}/>} />
                     <Route path="/patients" element={<PatientsPage />} />
                     <Route path="/doctors" element={<DoctorsPage />} />
                     <Route path="/doctors/:id" element={<DoctorDetails />} />
