@@ -81,7 +81,7 @@ class Dashboard(Resource):
         doctor_count=Doctor.query.count()
         appoinments_count=Appointment.query.count()
 
-        if not session["admin_id"]:
+        if 'admin_id' not in session:
             return make_response(jsonify({"loggedIn": False}))
         
         admin_id=session["admin_id"]
