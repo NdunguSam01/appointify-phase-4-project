@@ -15,6 +15,7 @@ const Home = () =>
         .then(response => response.json())
         .then(data => 
             {
+                console.log(data)
                 setAdminName(`${data.admin.first_name} ${data.admin.last_name}`)
                 setAppointmentCount(data.appointments)
                 setDoctorsCount(data.doctors)
