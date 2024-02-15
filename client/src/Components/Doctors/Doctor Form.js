@@ -22,7 +22,7 @@ const DoctorsForm = ({doctors, setDoctors}) =>
   {
     e.preventDefault()
     console.log("Form submitted")
-    fetch("/doctors",
+    fetch("https://appointify-project-api.onrender.com/doctors",
     {
       method: "POST",
       headers:
