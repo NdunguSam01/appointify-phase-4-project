@@ -21,6 +21,7 @@ const Navbar = ({accessToken}) =>
         if(response.ok)
         {
           localStorage.removeItem("loggedIn")
+          localStorage.removeItem("token")
           navigate("/")
         }
       })

@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-const Login = ({setAccessToken}) => 
+const Login = () => 
 {
     const navigate=useNavigate()
     const [loginFormData, setLoginFormData]=useState(
@@ -44,7 +44,7 @@ const Login = ({setAccessToken}) =>
                     response.json()
                     .then(message =>
                     {
-                        setAccessToken(message.access_token)
+                        localStorage.setItem("token", message.access_token)
                         localStorage.setItem("loggedIn", true)
                         toast.success(message.message,
                             {
