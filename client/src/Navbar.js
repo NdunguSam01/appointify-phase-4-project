@@ -8,7 +8,7 @@ const Navbar = ({accessToken}) =>
   const navigate=useNavigate()
   const handleLogOut = ()=>
   {
-    fetch("/logout",
+    fetch("https://appointify-project-api.onrender.com/logout",
     {
       method: "POST",
       headers:
