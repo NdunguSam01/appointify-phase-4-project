@@ -6,15 +6,14 @@ import Dashboard from './Components/Dashboard';
 import React, { useState } from 'react';
 function App() 
 {
-  const [loggedIn, setLoggedIn]=useState(false);
   const [accessToken, setAccessToken]=useState(null)
 
   return (
     <>
       <Routes>
-        <Route exact path='/' element={<Login setLoggedIn={setLoggedIn} setAccessToken={setAccessToken}/>}></Route>
+        <Route exact path='/' element={<Login  setAccessToken={setAccessToken}/>}></Route>
         <Route exact path='/register' element={<RegistrationForm/>}></Route>
-        <Route exact path='/dashboard/*' element={<Dashboard loggedIn={loggedIn} accessToken={accessToken}/>}></Route>
+        <Route exact path='/dashboard/*' element={<Dashboard accessToken={accessToken}/>}></Route>
       </Routes>
     </>
   );

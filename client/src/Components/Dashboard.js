@@ -6,8 +6,10 @@ import Navbar from '../Navbar'
 import Appointments from "./Appointments/Appointments Page";
 import Home from "./Home";
 
-const Dashboard = ({loggedIn, accessToken}) => 
+const Dashboard = ({ accessToken}) => 
 {
+    const loggedIn=localStorage.getItem("loggedIn")
+    console.log(loggedIn)
     return (
         <>
             {loggedIn ?

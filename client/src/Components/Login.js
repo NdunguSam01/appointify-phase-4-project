@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-const Login = ({setLoggedIn, setAccessToken}) => 
+const Login = ({setAccessToken}) => 
 {
     const navigate=useNavigate()
     const [loginFormData, setLoginFormData]=useState(
@@ -45,7 +45,7 @@ const Login = ({setLoggedIn, setAccessToken}) =>
                     .then(message =>
                     {
                         setAccessToken(message.access_token)
-                        setLoggedIn(true)
+                        localStorage.setItem("loggedIn", true)
                         toast.success(message.message,
                             {
                                 position: "top-right"
