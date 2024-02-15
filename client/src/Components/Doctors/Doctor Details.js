@@ -45,7 +45,7 @@ const DoctorDetails = () =>
     const handleUpdate = e =>
     {
         e.preventDefault()
-        fetch(`/doctors/${id}`,
+        fetch(`https://appointify-project-api.onrender.com/doctors/${id}`,
         {
             method: "PATCH",
             headers:
