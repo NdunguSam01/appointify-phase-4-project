@@ -148,7 +148,7 @@ api.add_resource(Patients, "/patients")
 class Doctors(Resource):
     def  get(self):
         doctors=Doctor.query.all()
-        doctors_schema=DoctorSchema(many=True)
+        doctors_schema=DoctorSchema(only=("id","first_name", "last_name", "department", "gender"),many=True)
         doctors_dict=doctors_schema.dump(doctors)
         return make_response(doctors_dict, 200)
 

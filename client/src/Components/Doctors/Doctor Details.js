@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import {toast, ToastContainer} from 'react-toastify'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form';
@@ -114,8 +114,10 @@ const DoctorDetails = () =>
         <>
             <ToastContainer autoClose={2000} className="mx-1" pauseOnHover={false}/>
             {doctor &&
-                <Form className="form" style={{margin: "40px auto"}}>
+                <Form className="form" style={{margin: "10px auto"}}>
                     <Row>
+                    <h1 className="col-md-6 mb-3">Dr. {doctor.first_name} {doctor.last_name}'s details</h1>
+                    <Link className="col-md-2 btn btn-success mx-auto mt-3 mb-3" onClick={() => navigate(-1)}>Go back</Link>
                     <Form.Group className='col-md-6 mb-3'>
                         <Form.Label>First Name</Form.Label>
                         <Form.Control type="name" placeholder="First Name" id="first_name" defaultValue={doctor.first_name}  onChange={handleInputChange} required></Form.Control>
