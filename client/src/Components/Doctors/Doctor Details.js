@@ -32,7 +32,7 @@ const DoctorDetails = () =>
             })
     },[id])
 
-    
+    console.log(doctor)
     const [updatedDetails, setUpdatedDetails]=useState(
         {
             first_name: '',

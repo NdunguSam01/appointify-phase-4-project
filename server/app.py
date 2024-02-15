@@ -200,7 +200,7 @@ class DoctorsByID(Resource):
         if not doctor:
             return make_response(jsonify("Doctor could not be found!"), 404)
         
-        doctor_schema=PatientSchema()
+        doctor_schema=DoctorSchema()
         doctor_dict=doctor_schema.dump(doctor)
         return make_response(doctor_dict, 200)
 

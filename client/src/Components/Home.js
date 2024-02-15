@@ -28,7 +28,7 @@ const Home = ({accessToken}) =>
                 setDoctorsCount(data.doctors)
                 setPatientCount(data.patients)
             })
-    })
+    },[accessToken])
 
     return (  
         <>
