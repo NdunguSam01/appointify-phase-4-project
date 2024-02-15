@@ -13,7 +13,7 @@ const Navbar = ({accessToken}) =>
       method: "POST",
       headers:
       {
-          "Authorization": `Bearer ${accessToken}`
+        "Authorization": `Bearer ${accessToken}`
       }
     })
     .then(response =>

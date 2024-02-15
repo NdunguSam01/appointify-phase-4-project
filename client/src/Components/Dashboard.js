@@ -9,7 +9,7 @@ import Home from "./Home";
 const Dashboard = ({ accessToken}) => 
 {
     const loggedIn=localStorage.getItem("loggedIn")
-    console.log(loggedIn)
+
     return (
         <>
             {loggedIn ?
