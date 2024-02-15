@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navbar = ({accessToken}) => 
 {
-  console.log(accessToken)
   const navigate=useNavigate()
   const handleLogOut = ()=>
   {
