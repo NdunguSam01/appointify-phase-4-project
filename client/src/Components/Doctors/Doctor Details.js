@@ -13,7 +13,7 @@ const DoctorDetails = () =>
 
     useEffect(()=>
     {
-        fetch(`/doctors/${id}`)
+        fetch(`https://appointify-project-api.onrender.com/doctors/${id}`)
         .then(response => 
             {
                 if(response.ok)
